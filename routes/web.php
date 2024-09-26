@@ -1,6 +1,7 @@
 <?php
 
 // Controllers
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Security\RolePermission;
 use App\Http\Controllers\Security\RoleController;
@@ -10,19 +11,17 @@ use Illuminate\Support\Facades\Artisan;
 // Packages
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
+use App\Http\Controllers\TicketController;
+
+
+
 
 require __DIR__.'/auth.php';
 
+
+Route::resource('events', EventController::class);
+Route::resource('tickets' , TicketController::class);
 Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
@@ -51,6 +50,8 @@ Route::group(['prefix' => 'menu-style'], function() {
     Route::get('dual-compact', [HomeController::class, 'dualcompact'])->name('menu-style.dualcompact');
     Route::get('boxed', [HomeController::class, 'boxed'])->name('menu-style.boxed');
     Route::get('boxed-fancy', [HomeController::class, 'boxedfancy'])->name('menu-style.boxedfancy');
+    
+    
 });
 
 //App Details Page => 'special-pages'], function() {
