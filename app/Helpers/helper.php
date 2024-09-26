@@ -1,4 +1,6 @@
-<?php
+<?php 
+
+
 function removeSession($session){
     if(\Session::has($session)){
         \Session::forget($session);
@@ -97,4 +99,25 @@ function getFileExistsCheck($media)
         }
     }
     return $mediaCondition;
+}
+if (!function_exists('getAddress')) {
+    function getAddress($lat, $lng) {
+        $url = "https://nominatim.openstreetmap.org/reverse?lat={$lat}&lon={$lng}&format=json";
+        $response = @file_get_contents($url);
+
+        // Check if the request was successful
+        if ($response === FALSE) {
+            // Log the error or provide a more informative message
+            return 'Location not found. Check your latitude and longitude values.';
+        }
+
+        $data = json_decode($response);
+        
+        // Check if the API returned a valid address
+        if (isset($data->error)) {
+            return 'Location not found. Error: ' . $data->error;
+        }
+
+        return $data->display_name ?? 'Location not found';
+    }
 }
