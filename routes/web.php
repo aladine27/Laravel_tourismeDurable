@@ -1,6 +1,8 @@
 <?php
 
 // Controllers
+use App\Http\Controllers\AccommodationController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Security\RolePermission;
@@ -15,11 +17,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TicketController;
 
 
-
-
 require __DIR__.'/auth.php';
 
-
+Route::resource('accommodations', AccommodationController::class);
+Route::resource('bookings', BookingController::class);
 Route::resource('events', EventController::class);
 Route::resource('tickets' , TicketController::class);
 Route::get('/storage', function () {
@@ -50,8 +51,8 @@ Route::group(['prefix' => 'menu-style'], function() {
     Route::get('dual-compact', [HomeController::class, 'dualcompact'])->name('menu-style.dualcompact');
     Route::get('boxed', [HomeController::class, 'boxed'])->name('menu-style.boxed');
     Route::get('boxed-fancy', [HomeController::class, 'boxedfancy'])->name('menu-style.boxedfancy');
-    
-    
+
+
 });
 
 //App Details Page => 'special-pages'], function() {
