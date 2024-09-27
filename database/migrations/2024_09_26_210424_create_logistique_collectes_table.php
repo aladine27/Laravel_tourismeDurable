@@ -14,13 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('logistique_collectes', function (Blueprint $table) {
-            $table->id(); // Auto-incrementing primary key
-            $table->string('chauffeur'); // Column for chauffeur name
-            $table->string('vehicle'); // Column for vehicle details
-            $table->string('route'); // Column for route details
-            $table->date('collect_date'); // Column for collection date
-            $table->foreignId('transporteur_id')->constrained()->onDelete('cascade'); // Foreign key for transporteur
-            $table->timestamps(); // Created at and updated at timestamps
+            $table->id();
+            $table->string('chauffeur');
+            $table->string('vehicle');
+            $table->date('collect_date');
+            $table->foreignId('transporteur_id')->constrained()->onDelete('cascade');
+            $table->foreignId('departure_id')->constrained('locations')->onDelete('cascade');
+            $table->foreignId('arrival_id')->constrained('locations')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

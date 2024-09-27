@@ -1,7 +1,7 @@
 <x-app-layout :assets="$assets ?? []">
     <div class="logistique-content">
         <h1>Logistique Collectes</h1>
-        
+
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -16,7 +16,8 @@
                 <tr>
                     <th>Chauffeur</th>
                     <th>Véhicule</th>
-                    <th>Route</th>
+                    <th>Départ</th>
+                    <th>Arrivée</th>
                     <th>Date de Collecte</th>
                     <th>Transporteur</th>
                     <th>Actions</th>
@@ -29,9 +30,10 @@
                             <a href="{{ route('logistique_collectes.show', $logistiqueCollecte->id) }}">{{ $logistiqueCollecte->chauffeur }}</a>
                         </td>
                         <td>{{ $logistiqueCollecte->vehicle }}</td>
-                        <td>{{ $logistiqueCollecte->route }}</td>
-                        <td>{{ $logistiqueCollecte->collect_date }}</td>
-                        <td>{{ $logistiqueCollecte->transporteur->name }}</td>
+                        <td>{{ json_decode($logistiqueCollecte->departure)->name }}</td>
+                        <td>{{ json_decode($logistiqueCollecte->arrival)->name }}</td>
+                        <td>{{ \Carbon\Carbon::parse($logistiqueCollecte->collect_date)->format('d/m/Y') }}</td>
+                        <td>{{ $logistiqueCollecte->transporteur->name ?? 'N/A' }}</td>
                         <td>
                             <a href="{{ route('logistique_collectes.show', $logistiqueCollecte->id) }}" class="btn btn-info btn-sm">Voir</a>
                             <a href="{{ route('logistique_collectes.edit', $logistiqueCollecte->id) }}" class="btn btn-warning btn-sm">Modifier</a>

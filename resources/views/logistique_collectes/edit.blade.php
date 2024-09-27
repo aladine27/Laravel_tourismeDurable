@@ -27,13 +27,42 @@
             </div>
 
             <div class="mb-3">
-                <label for="route" class="form-label">Route</label>
-                <input type="text" name="route" id="route" class="form-control" value="{{ $logistiqueCollecte->route }}" required>
+                <label for="collect_date" class="form-label">Date de Collecte</label>
+                <input type="date" name="collect_date" id="collect_date" class="form-control" value="{{ $logistiqueCollecte->collect_date }}" required>
             </div>
 
             <div class="mb-3">
-                <label for="collect_date" class="form-label">Date de Collecte</label>
-                <input type="date" name="collect_date" id="collect_date" class="form-control" value="{{ $logistiqueCollecte->collect_date }}" required>
+                <label for="departure" class="form-label">Départ</label>
+                <select id="departure" name="departure" class="form-select" required>
+                    <option value="">Sélectionnez un lieu de départ</option>
+                    @foreach ($locations as $location)
+                        @if (is_array($location) && isset($location['name'], $location['lat'], $location['lng']))
+                            <option value="{{ json_encode(['name' => $location['name'], 'lat' => $location['lat'], 'lng' => $location['lng']]) }}"
+                                {{ $logistiqueCollecte->departure == json_encode(['name' => $location['name'], 'lat' => $location['lat'], 'lng' => $location['lng']]) ? 'selected' : '' }}>
+                                {{ $location['name'] }}
+                            </option>
+                        @else
+                            <option value="">{{ __('Invalid location data') }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="arrival" class="form-label">Arrivée</label>
+                <select id="arrival" name="arrival" class="form-select" required>
+                    <option value="">Sélectionnez un lieu d'arrivée</option>
+                    @foreach ($locations as $location)
+                        @if (is_array($location) && isset($location['name'], $location['lat'], $location['lng']))
+                            <option value="{{ json_encode(['name' => $location['name'], 'lat' => $location['lat'], 'lng' => $location['lng']]) }}"
+                                {{ $logistiqueCollecte->arrival == json_encode(['name' => $location['name'], 'lat' => $location['lat'], 'lng' => $location['lng']]) ? 'selected' : '' }}>
+                                {{ $location['name'] }}
+                            </option>
+                        @else
+                            <option value="">{{ __('Invalid location data') }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
 
             <div class="mb-3">
@@ -48,10 +77,48 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Mettre à Jour</button>
+            <a href="{{ route('logistique_collectes.index') }}" class="btn btn-secondary mt-3">Retour à la liste des Collectes</a>
         </form>
 
-        <a href="{{ route('logistique_collectes.index') }}" class="btn btn-secondary mt-3">Retour à la liste des Collectes</a>
+        <div id="map" style="height: 300px; width: 100%;"></div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const map = L.map('map').setView([33.8869, 9.5375], 7); // Default to Tunisia
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+
+            let points = [];
+            const polyline = L.polyline([], { color: 'blue' }).addTo(map);
+
+            // Function to add point to the map
+            function updatePolyline() {
+                polyline.setLatLngs(points);
+            }
+
+            // Update map with selected departure location
+            document.getElementById('departure').addEventListener('change', function() {
+                const location = JSON.parse(this.value);
+                const departureLatLng = [location.lat, location.lng];
+                map.setView(departureLatLng, 10);
+                L.marker(departureLatLng).addTo(map).bindPopup(location.name).openPopup();
+                points[0] = departureLatLng; // Update departure point
+                updatePolyline(); // Update polyline
+            });
+
+            // Update map with selected arrival location
+            document.getElementById('arrival').addEventListener('change', function() {
+                const location = JSON.parse(this.value);
+                const arrivalLatLng = [location.lat, location.lng];
+                map.setView(arrivalLatLng, 10);
+                L.marker(arrivalLatLng).addTo(map).bindPopup(location.name).openPopup();
+                points[1] = arrivalLatLng; // Update arrival point
+                updatePolyline(); // Update polyline
+            });
+        });
+    </script>
 
     <style>
         .logistique-content {

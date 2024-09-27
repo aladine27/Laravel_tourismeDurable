@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\LogistiqueCollecte;
@@ -19,22 +18,24 @@ class LogistiqueCollecteController extends Controller
     public function create()
     {
         $transporteurs = Transporteur::all();
-        return view('logistique_collectes.create', compact('transporteurs'));
+        $locations = $this->getLocations(); // Fetch locations
+        return view('logistique_collectes.create', compact('transporteurs', 'locations'));
     }
 
     // Store a newly created logistic collecte in the database
     public function store(Request $request)
     {
-        $request->validate([
-            'chauffeur' => 'required',
-            'vehicle' => 'required',
-            'route' => 'required',
+        $validatedData = $request->validate([
+            'chauffeur' => 'required|string',
+            'vehicle' => 'required|string',
             'collect_date' => 'required|date',
-            'transporteur_id' => 'required|exists:transporteurs,id'
+            'departure' => 'required|string',
+            'arrival' => 'required|string',
+            'transporteur_id' => 'required|exists:transporteurs,id',
         ]);
 
-        LogistiqueCollecte::create($request->all());
-        return redirect()->route('logistique_collectes.index')->with('success', 'Logistique Collecte created successfully.');
+        LogistiqueCollecte::create($validatedData);
+        return redirect()->route('logistique_collectes.index')->with('success', 'Collecte logistique créée avec succès.');
     }
 
     // Display the specified logistic collecte
@@ -47,28 +48,49 @@ class LogistiqueCollecteController extends Controller
     public function edit(LogistiqueCollecte $logistiqueCollecte)
     {
         $transporteurs = Transporteur::all();
-        return view('logistique_collectes.edit', compact('logistiqueCollecte', 'transporteurs'));
+        $locations = $this->getLocations(); // Fetch locations
+        return view('logistique_collectes.edit', compact('logistiqueCollecte', 'transporteurs', 'locations'));
     }
 
     // Update the specified logistic collecte in the database
     public function update(Request $request, LogistiqueCollecte $logistiqueCollecte)
     {
         $request->validate([
-            'chauffeur' => 'required',
-            'vehicle' => 'required',
-            'route' => 'required',
+            'chauffeur' => 'required|string',
+            'vehicle' => 'required|string',
             'collect_date' => 'required|date',
-            'transporteur_id' => 'required|exists:transporteurs,id'
+            'departure' => 'required|string',
+            'arrival' => 'required|string',
+            'transporteur_id' => 'required|exists:transporteurs,id',
         ]);
 
         $logistiqueCollecte->update($request->all());
-        return redirect()->route('logistique_collectes.index')->with('success', 'Logistique Collecte updated successfully.');
+        return redirect()->route('logistique_collectes.index')->with('success', 'Collecte logistique mise à jour avec succès.');
     }
 
     // Remove the specified logistic collecte from the database
     public function destroy(LogistiqueCollecte $logistiqueCollecte)
     {
         $logistiqueCollecte->delete();
-        return redirect()->route('logistique_collectes.index')->with('success', 'Logistique Collecte deleted successfully.');
+        return redirect()->route('logistique_collectes.index')->with('success', 'Collecte logistique supprimée avec succès.');
+    }
+
+    // Fetch locations from a JSON file
+    public function getLocations()
+    {
+        $filePath = storage_path('tunisian_locations.json');
+        if (file_exists($filePath)) {
+            $response = file_get_contents($filePath);
+            $locations = json_decode($response, true); // Decode as associative array
+            
+            // Check for JSON errors
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return []; // Return an empty array on error
+            }
+
+            return $locations; // Return the array
+        }
+
+        return []; // Return an empty array if the file doesn't exist
     }
 }

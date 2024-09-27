@@ -10,7 +10,7 @@ class LogistiqueCollecte extends Model
     use HasFactory;
 
     // Allow mass assignment for these fields
-    protected $fillable = ['chauffeur', 'vehicle', 'route', 'collect_date', 'transporteur_id'];
+    protected $fillable = ['chauffeur', 'vehicle', 'collect_date', 'transporteur_id', 'departure', 'arrival'];
 
     // A logistic collecte belongs to one transporteur
     public function transporteur()
