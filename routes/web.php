@@ -7,6 +7,7 @@ use App\Http\Controllers\Security\RolePermission;
 use App\Http\Controllers\Security\RoleController;
 use App\Http\Controllers\Security\PermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Artisan;
 // Packages
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,9 @@ Route::resource('tickets' , TicketController::class);
 Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
+
+//byserine routes
+Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
 
 //UI Pages Routs
 Route::get('/ui', [HomeController::class, 'uisheet'])->name('uisheet');
