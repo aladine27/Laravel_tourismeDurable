@@ -9,7 +9,10 @@ class Guide extends Model
 {
     use HasFactory;
 
-    // Définir les champs pouvant être remplis en masse
+    // Table associée à ce modèle
+    protected $table = 'guides';
+
+    // Les attributs qui peuvent être remplis via un formulaire
     protected $fillable = [
         'name',
         'experience_years',
@@ -17,9 +20,7 @@ class Guide extends Model
         'phone',
     ];
 
-    /**
-     * Relation Many-to-Many avec le modèle Tour
-     */
+    // Relation Many-to-Many avec Tour
     public function tours()
     {
         return $this->belongsToMany(Tour::class);

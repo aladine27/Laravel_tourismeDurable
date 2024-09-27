@@ -25,6 +25,7 @@ Route::resource('guides', GuideController::class);
 Route::resource('tours', TourController::class);
 Route::resource('events', EventController::class);
 Route::resource('tickets' , TicketController::class);
+
 Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
