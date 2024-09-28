@@ -8,6 +8,8 @@ use App\Http\Controllers\Security\RoleController;
 use App\Http\Controllers\Security\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\TravelerController;
+use App\Http\Controllers\TripController;
 use Illuminate\Support\Facades\Artisan;
 // Packages
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,12 @@ Route::get('/storage', function () {
 
 //byserine routes
 Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
+Route::resource('gestionVoyageur', TravelerController::class);
+Route::resource('gestionVoyage', TripController::class);
+Route::get('/gestionVoyageur/{id}/edit', [TravelerController::class, 'edit'])->name('gestionVoyageur.edit');
+Route::put('/gestionVoyageur/{id}', [TravelerController::class, 'update'])->name('gestionVoyageur.update');
+Route::delete('/gestionVoyageur/{id}', [TravelerController::class, 'destroy'])->name('gestionVoyageur.destroy');
+
 
 //UI Pages Routs
 Route::get('/ui', [HomeController::class, 'uisheet'])->name('uisheet');
