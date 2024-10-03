@@ -1,8 +1,8 @@
 <?php
 
 // Controllers
-use App\Http\Controllers\TransporteurController;
-use App\Http\Controllers\LogistiqueCollecteController;
+use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Security\RolePermission;
@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 
-// Resource routes for CRUD
-Route::resource('transporteurs', TransporteurController::class);
-Route::resource('logistique_collectes', LogistiqueCollecteController::class);
+// Resourphpce routes for CRUD
+Route::resource('menus', MenuController::class);
+Route::get('restaurants/{restaurant}/menu', [RestaurantController::class, 'redirectToMenu'])->name('restaurants.menu');
+Route::resource('restaurants', RestaurantController::class);
 Route::resource('events', EventController::class);
 Route::resource('tickets', TicketController::class);
 

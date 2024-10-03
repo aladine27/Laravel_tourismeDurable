@@ -38,31 +38,33 @@
     </a>
 </li>
 
+ <!-- Restaurant Link -->
+ <li class="nav-item">
+        <a class="nav-link {{ activeRoute(route('restaurants.index')) }}" aria-current="page" href="{{ route('restaurants.index') }}">
+            <i class="icon">
+                <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12C15.3137 12 18 9.31371 18 6C18 2.68629 15.3137 0 12 0C8.68629 0 6 2.68629 6 6C6 9.31371 8.68629 12 12 12Z" fill="currentColor" />
+                    <path d="M0 24C0 17.3726 6.37258 12 12 12C17.6274 12 24 17.3726 24 24H0Z" fill="currentColor" />
+                </svg>
+            </i>
+            <span class="item-name">Restaurants</span>
+        </a>
+        <li class="nav-item">
 
-<li class="nav-item">
-    <a class="nav-link {{ activeRoute('transporteurs.index') }}" aria-current="page" href="{{ route('transporteurs.index') }}">
-        <i class="icon">
-            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 12C15.3137 12 18 9.31371 18 6C18 2.68629 15.3137 0 12 0C8.68629 0 6 2.68629 6 6C6 9.31371 8.68629 12 12 12Z" fill="currentColor"/>
-                <path d="M0 24C0 17.3726 6.37258 12 12 12C17.6274 12 24 17.3726 24 24H0Z" fill="currentColor"/>
-            </svg>
-        </i>
-        <span class="item-name">Transporteur</span>
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link {{ activeRoute('logistique_collectes.index') }}" aria-current="page" href="{{ route('logistique_collectes.index') }}">
-        <i class="icon">
-            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 9H19L21 15H3L5 9Z" fill="currentColor"/>
-                <path d="M2 18H22V20H2V18Z" fill="currentColor"/>
-                <path d="M5 9H19V11H5V9Z" fill="currentColor"/>
-                <path d="M4 15H20V17H4V15Z" fill="currentColor"/>
-            </svg>
-        </i>
-        <span class="item-name">Logistique</span>
-    </a>
-</li>
+        <li class="nav-item">
+        <a class="nav-link {{ activeRoute(route('menus.index')) }}" aria-current="page" href="{{ route('menus.index') }}">
+            <i class="icon">
+                <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12C15.3137 12 18 9.31371 18 6C18 2.68629 15.3137 0 12 0C8.68629 0 6 2.68629 6 6C6 9.31371 8.68629 12 12 12Z" fill="currentColor" />
+                    <path d="M0 24C0 17.3726 6.37258 12 12 12C17.6274 12 24 17.3726 24 24H0Z" fill="currentColor" />
+                </svg>
+            </i>
+            <span class="item-name">Menus</span>
+        </a>
+        <li class="nav-item">
+
+
+
 
 
 
