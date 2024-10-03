@@ -23,8 +23,6 @@ Route::resource('restaurants', RestaurantController::class);
 Route::resource('events', EventController::class);
 Route::resource('tickets', TicketController::class);
 
-// Define routes for additional CRUD views
-Route::resource('your_entities', YourCustomController::class); // Replace 'your_entities' and YourCustomController with your actual entity names
 
 Route::get('/storage', function () {
     Artisan::call('storage:link');
