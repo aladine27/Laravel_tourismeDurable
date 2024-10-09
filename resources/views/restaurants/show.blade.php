@@ -13,13 +13,9 @@
                     <div class="detail-item">
                         <i class="fas fa-utensils"></i> <strong>Nom du Restaurant:</strong> {{ $restaurant->name }}
                     </div>
-
                     <div class="detail-item">
                         <i class="fas fa-concierge-bell"></i> <strong>Type de Cuisine:</strong> {{ $restaurant->cuisine_type }}
                     </div>
-
-                  
-
                     <div class="detail-item">
                         <i class="fas fa-map-marker-alt"></i> <strong>Adresse:</strong> {{ preg_replace('/\s*\(Lat:.*?Lng:.*?\)\s*/', '', $restaurant->address) }}
                     </div>
@@ -38,11 +34,15 @@
                     @endif
 
                     <div class="detail-item">
-                        <i class="fas fa-book-open"></i> <strong>Menu:</strong>
+                        <i class="fas fa-book-open"></i> <strong>Menus:</strong>
                     </div>
-                    @if($restaurant->menu)
+                    @if($restaurant->menus->isNotEmpty())
                         <div class="image-container">
-                            <img src="{{ asset('storage/' . $restaurant->menu->photo) }}" alt="Menu Image" class="restaurant-image rounded">
+                            @foreach($restaurant->menus as $menu)
+                                <div class="menu-item">
+                                    <img src="{{ asset('storage/' . $menu->photo) }}" alt="Menu Image" class="restaurant-image rounded">
+                                </div>
+                            @endforeach
                         </div>
                     @else
                         <div class="image-container">
@@ -149,6 +149,7 @@
             width: 500px; /* Increased width for larger images */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px 0; /* Spacing between menu images */
         }
 
         .action-buttons {
