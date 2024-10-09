@@ -37,7 +37,19 @@
         <span class="item-name">NosTickets</span>
     </a>
 </li>
-</li> <!--
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ activeRoute(route('destinations.index')) }}" aria-current="page" href="{{ route('destinations.index') }}">
+        <i class="icon">
+            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.4" d="M3 6.5C3 5.12 4.12 4 5.5 4H18.5C19.88 4 21 5.12 21 6.5V17.5C21 18.88 19.88 20 18.5 20H5.5C4.12 20 3 18.88 3 17.5V6.5Z" fill="currentColor"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M16 11H8V13H16V11Z" fill="currentColor"></path>
+            </svg>
+        </i>
+        <span class="item-name">Nos Destinations</span>
+    </a>
+</li>
+ <!--
     <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#horizontal-menu" role="button" aria-expanded="false" aria-controls="horizontal-menu">
             <i class="icon">

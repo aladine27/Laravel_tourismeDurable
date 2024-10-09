@@ -1,6 +1,8 @@
 <?php
 
 // Controllers
+
+use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Security\RolePermission;
@@ -19,7 +21,7 @@ use App\Http\Controllers\TicketController;
 
 require __DIR__.'/auth.php';
 
-
+Route::resource('destinations', DestinationController::class);
 Route::resource('events', EventController::class);
 Route::resource('tickets' , TicketController::class);
 Route::get('/storage', function () {
