@@ -10,9 +10,9 @@ use App\Http\Controllers\Security\RoleController;
 use App\Http\Controllers\Security\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TicketController;
-use App\Http\Controllers\YourCustomController; // Add your custom controller here
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomePageController;
 
 require __DIR__.'/auth.php';
 
@@ -27,8 +27,9 @@ Route::resource('tickets', TicketController::class);
 Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
+Route::get('/home', [HomePageController::class, 'home'])->name('home');
 
-// UI Pages Routes
+
 Route::get('/ui', [HomeController::class, 'uisheet'])->name('uisheet');
 
 Route::group(['middleware' => 'auth'], function () {
