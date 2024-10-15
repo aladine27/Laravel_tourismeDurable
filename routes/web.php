@@ -12,7 +12,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
 // Packages
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\GuideTourController;
 
 use App\Http\Controllers\TicketController;
 
@@ -23,6 +23,11 @@ require __DIR__.'/auth.php';
 
 Route::resource('guides', GuideController::class);
 Route::resource('tours', TourController::class);
+
+// Routes pour gérer l'affectation des guides à un tour
+Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
+Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
+Route::resource('guidetours', GuideTourController::class);
 
 Route::resource('events', EventController::class);
 Route::resource('tickets' , TicketController::class);
