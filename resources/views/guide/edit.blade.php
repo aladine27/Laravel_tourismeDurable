@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="container">
-        <h1>Edit Guide</h1>
+      
 
-        <form action="{{ route('guides.update', $guide->id) }}" method="POST">
+        <form action="{{ route('guides.update', $guide->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -25,6 +25,14 @@
                 <label for="phone" class="form-label">Phone</label>
                 <input type="text" name="phone" id="phone" class="form-control" value="{{ $guide->phone }}" required>
             </div>
+            <div class="mb-3">
+                     <label for="image" class="form-label">Image</label>
+                    <input type="file" name="image" id="image" class="form-control">
+
+                     @if($guide->image)
+                    <img src="{{ asset('storage/' . $guide->image) }}" alt="Guide Image" width="100">
+                    @endif
+    </div>
 
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Update Guide</button>

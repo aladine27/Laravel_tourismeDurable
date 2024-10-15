@@ -18,6 +18,7 @@ class Guide extends Model
         'experience_years',
         'email',
         'phone',
+        'image',
     ];
 
     // Relation Many-to-Many avec Tour

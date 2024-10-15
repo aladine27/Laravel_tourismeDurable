@@ -28,7 +28,15 @@ class GuideController extends Controller
             'experience_years' => 'required|integer',
             'email' => 'required|email|unique:guides,email',
             'phone' => 'required',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
         ]);
+
+        // Gérer l'upload de l'image
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('guides', 'public');
+    } else {
+        $imagePath = null;
+    }
 
         Guide::create($request->all());
         return redirect()->route('guides.index')->with('success', 'Guide créé avec succès.');
@@ -54,7 +62,18 @@ class GuideController extends Controller
             'experience_years' => 'required|integer',
             'email' => 'required|email|unique:guides,email,' . $guide->id,
             'phone' => 'required',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+        // Supprimer l'ancienne image si elle existe
+        if ($guide->image) {
+            Storage::delete('public/' . $guide->image);
+        }
+        $imagePath = $request->file('image')->store('guides', 'public');
+    } else {
+        $imagePath = $guide->image; // Conserver l'ancienne image si aucune nouvelle image n'est chargée
+    }
 
         $guide->update($request->all());
         return redirect()->route('guides.index')->with('success', 'Guide mis à jour avec succès.');
