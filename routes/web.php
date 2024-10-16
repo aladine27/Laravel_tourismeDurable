@@ -23,6 +23,8 @@ require __DIR__.'/auth.php';
 
 Route::resource('guides', GuideController::class);
 Route::resource('tours', TourController::class);
+Route::resource('restaurants', RestaurantController::class);
+Route::resource('menus', MenuController::class);
 
 // Routes pour gérer l'affectation des guides à un tour
 Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
