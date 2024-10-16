@@ -1,28 +1,36 @@
 <?php
 
 // Controllers
-use App\Http\Controllers\RestaurantController;
-use App\Http\Controllers\MenuController;
+use App\Http\Controllers\GuideController;
+use App\Http\Controllers\TourController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Security\RolePermission;
 use App\Http\Controllers\Security\RoleController;
 use App\Http\Controllers\Security\PermissionController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Artisan;
+// Packages
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GuideTourController;
+
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\YourCustomController; // Add your custom controller here
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Route;
+
+
 
 require __DIR__.'/auth.php';
 
-// Resourphpce routes for CRUD
-Route::resource('menus', MenuController::class);
-Route::get('restaurants/{restaurant}/menu', [RestaurantController::class, 'redirectToMenu'])->name('restaurants.menu');
-Route::resource('restaurants', RestaurantController::class);
-Route::resource('events', EventController::class);
-Route::resource('tickets', TicketController::class);
+Route::resource('guides', GuideController::class);
+Route::resource('tours', TourController::class);
 
+// Routes pour gérer l'affectation des guides à un tour
+Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
+Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
+Route::resource('guidetours', GuideTourController::class);
+
+Route::resource('events', EventController::class);
+Route::resource('tickets' , TicketController::class);
 
 Route::get('/storage', function () {
     Artisan::call('storage:link');
