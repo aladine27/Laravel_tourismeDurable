@@ -16,6 +16,7 @@ class Tour extends Model
         'date',
         'duration',
         'price',
+        'nb_place', 
     ];
 
     /**

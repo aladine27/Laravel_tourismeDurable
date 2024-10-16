@@ -25,6 +25,7 @@ class TourController extends Controller
             'date' => 'required|date',
             'duration' => 'required|integer',
             'price' => 'required|integer',
+             'nb_place' => 'required|integer',
         ]);
 
         Tour::create($request->all());
@@ -44,6 +45,7 @@ class TourController extends Controller
             'date' => 'required|date',
             'duration' => 'required|integer',
             'price' => 'required|integer',
+             'nb_place' => 'required|integer',
         ]);
 
         $tour->update($request->all());

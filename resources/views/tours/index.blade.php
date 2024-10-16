@@ -13,6 +13,7 @@
                     <th>Date</th>
                     <th>Durée (heures)</th>  <!-- Nouvelle colonne pour la durée -->
                     <th>Prix</th>  <!-- Nouvelle colonne pour le prix -->
+                    <th>nbPlace</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                         <td>{{ \Carbon\Carbon::parse($tour->date)->format('d-m-Y') }}</td>
                         <td>{{ $tour->duration }}</td>  <!-- Affichage de la durée -->
                         <td>{{ number_format($tour->price, 2, ',', ' ') }} €</td>  <!-- Affichage du prix avec format -->
+                        <td>{{ $tour->nb_place }}</td>
                         <td>
                             <!-- Bouton pour modifier la visite -->
                             <a href="{{ route('tours.edit', $tour) }}" class="btn btn-warning btn-sm">Modifier</a>

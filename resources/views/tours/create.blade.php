@@ -29,6 +29,11 @@
                 <label for="price" class="form-label">Prix</label>
                 <input type="number" name="price" id="price" class="form-control" required>
             </div>
+            <div class="mb-3">
+                     <label for="nb_place" class="form-label">Nombre de Places</label>
+                    <input type="number" name="nb_place" id="nb_place" class="form-control" required>
+            </div>
+
 
             <div class="mb-3 text-center">
                 <button type="submit" class="btn btn-primary">Ajouter</button>

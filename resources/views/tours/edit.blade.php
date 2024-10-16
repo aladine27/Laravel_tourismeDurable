@@ -45,6 +45,11 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="mb-3">
+    <label for="nb_place" class="form-label">Nombre de Places</label>
+    <input type="number" name="nb_place" id="nb_place" class="form-control" required>
+</div>
+    
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Modifier la Visite</button>
