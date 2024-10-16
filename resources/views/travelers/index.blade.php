@@ -1,6 +1,8 @@
 @extends('layout')
 
-@section('content')
+<x-app-layout :assets="$assets ?? []">
+<div class="trips-content">
+    
     <h1>Liste des voyageurs</h1>
     
     <!-- Display success message -->
@@ -37,4 +39,15 @@
             @endforeach
         </tbody>
     </table>
-@endsection
+    </div>
+
+<style>
+        .trips-content {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+    </style>
+</x-app-layout>

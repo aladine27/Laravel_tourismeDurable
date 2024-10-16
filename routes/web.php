@@ -41,6 +41,16 @@ Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
 
+//byserine routes
+Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
+Route::resource('gestionVoyageur', TravelerController::class);
+Route::resource('gestionVoyage', TripController::class);
+Route::get('/gestionVoyageur/{id}/edit', [TravelerController::class, 'edit'])->name('gestionVoyageur.edit');
+Route::put('/gestionVoyageur/{id}', [TravelerController::class, 'update'])->name('gestionVoyageur.update');
+Route::delete('/gestionVoyageur/{id}', [TravelerController::class, 'destroy'])->name('gestionVoyageur.destroy');
+
+
+//UI Pages Routs
 // UI Pages Routes
 Route::get('/ui', [HomeController::class, 'uisheet'])->name('uisheet');
 
