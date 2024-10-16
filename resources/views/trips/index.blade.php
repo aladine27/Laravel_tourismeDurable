@@ -18,7 +18,7 @@
                 <th>Date de début</th>
                 <th>Date de fin</th>
                 <th>Coût</th>
-                <th>Voyageur</th>
+                <th>Voyageurs</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -28,8 +28,16 @@
                     <td>{{ $trip->destination }}</td>
                     <td>{{ $trip->start_date }}</td>
                     <td>{{ $trip->end_date }}</td>
-                    <td>{{ $trip->cost }} €</td>
-                    <td>{{ $trip->traveler->name }}</td>
+                    <td>{{ $trip->cost }} DT</td>
+                    <td>
+                            @if ($trip->travelers->isEmpty())
+                                Aucuns voyageurs
+                            @else
+                                @foreach ($trip->travelers as $traveler)
+                                    {{ $traveler->name }}@if(!$loop->last), @endif
+                                @endforeach
+                            @endif
+                     </td>
                     <td>
                         <a href="{{ route('gestionVoyage.edit', $trip->id) }}" class="btn btn-warning">Modifier</a>
                         <form action="{{ route('gestionVoyage.destroy', $trip->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce voyage ?');">

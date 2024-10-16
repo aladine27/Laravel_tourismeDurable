@@ -13,7 +13,7 @@ class TripController extends Controller
      */
     public function index()
     {
-        $trips = Trip::with('traveler')->get();
+        $trips = Trip::with('travelers')->get();
         return view('trips.index', compact('trips'));
     }
 
@@ -36,12 +36,16 @@ class TripController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'cost' => 'required|numeric',
-            'traveler_id' => 'required|exists:travelers,id'
+            // 'traveler_id' => 'required|exists:travelers,id'
+            'traveler_ids' => 'required|array', // Ensure traveler_ids is an array for multiple selection
+            'traveler_ids.*' => 'exists:travelers,id' // Validate each traveler ID exists
         ]);
 
-        Trip::create($request->all());
+        $trip = Trip::create($request->all());
+        // Attach the selected travelers to the trip
+        $trip->travelers()->attach($request->traveler_ids);
+        return redirect()->route('gestionVoyage.index')->with('success', 'Voyage créé avec succès.');        
 
-        return redirect()->route('gestionVoyage.index')->with('success', 'Voyage créé avec succès.');
     }
 
     /**
@@ -64,11 +68,28 @@ class TripController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'cost' => 'required|numeric',
-            'traveler_id' => 'required|exists:travelers,id'
+            // 'traveler_id' => 'required|exists:travelers,id'
+            'traveler_ids' => 'required|array', // Ensure traveler_ids is an array for multiple selection
+            'traveler_ids.*' => 'exists:travelers,id' // Validate each traveler ID exists
         ]);
 
+        // $trip = Trip::findOrFail($id);
+        // $trip->update($request->all());
+        // return redirect()->route('gestionVoyage.index')->with('success', 'Voyage mis à jour avec succès.');
+        
+        // Find the trip
         $trip = Trip::findOrFail($id);
-        $trip->update($request->all());
+
+        // Update the trip
+        $trip->update([
+            'destination' => $request->input('destination'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'cost' => $request->input('cost'),
+        ]);
+
+        // Sync the selected travelers with the trip
+        $trip->travelers()->sync($request->input('traveler_ids'));
 
         return redirect()->route('gestionVoyage.index')->with('success', 'Voyage mis à jour avec succès.');
     }

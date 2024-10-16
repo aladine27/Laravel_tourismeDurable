@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('cost');
-            $table->foreignId('traveler_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('traveler_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

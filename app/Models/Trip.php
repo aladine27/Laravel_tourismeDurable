@@ -12,9 +12,9 @@ class Trip extends Model
     // protected $fillable = ['destination', 'start_date', 'end_date', 'cost', 'traveler_id'];
     protected $fillable = ['destination', 'start_date', 'end_date', 'cost'];
 
-    public function traveler()
+    public function travelers()
     {
         // return $this->belongsTo(Traveler::class);
-        return $this->belongsToMany(Traveler::class, 'trip_traveler');
+        return $this->belongsToMany(Traveler::class, 'trip_travelers');
     }
 }

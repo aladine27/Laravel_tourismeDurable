@@ -14,8 +14,9 @@
     @endif
 
     <form action="{{ route('gestionVoyage.update', $trip->id) }}" method="POST">
-    @csrf
+        @csrf
         @method('PUT')
+
         <div class="form-group">
             <label for="destination">Destination</label>
             <input type="text" name="destination" id="destination" class="form-control" value="{{ $trip->destination }}">
@@ -37,18 +38,19 @@
         </div>
 
         <div class="form-group">
-            <label for="traveler_id">Voyageur</label>
-            <select name="traveler_id" id="traveler_id" class="form-control">
+            <label for="traveler_ids">Voyageurs</label>
+            <select name="traveler_ids[]" id="traveler_ids" class="form-control" multiple>
                 @foreach($travelers as $traveler)
-                    <option value="{{ $traveler->id }}" {{ $traveler->id == $trip->traveler_id ? 'selected' : '' }}>
+                    <option value="{{ $traveler->id }}" 
+                        {{ $trip->travelers->contains($traveler->id) ? 'selected' : '' }}>
                         {{ $traveler->name }}
                     </option>
                 @endforeach
             </select>
+            <small class="form-text text-muted">Maintenez la touche Ctrl (ou Cmd) enfoncée pour sélectionner plusieurs voyageurs.</small>
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">Mettre à jour</button>
         <a href="{{ route('gestionVoyage.index') }}" class="btn btn-secondary">Annuler</a>
     </form>
 @endsection
-
