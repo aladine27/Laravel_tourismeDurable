@@ -1,6 +1,8 @@
 <?php
 
 // Controllers
+use App\Http\Controllers\AccommodationController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\GuideController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\EventController;
@@ -55,6 +57,9 @@ Route::delete('/gestionVoyageur/{id}', [TravelerController::class, 'destroy'])->
 Route::get('/ui', [HomeController::class, 'uisheet'])->name('uisheet');
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::resource('accommodations', AccommodationController::class);
+    Route::resource('bookings', BookingController::class);
     // Permission Module
     Route::get('/role-permission', [RolePermission::class, 'index'])->name('role.permission.list');
     Route::resource('permission', PermissionController::class);
