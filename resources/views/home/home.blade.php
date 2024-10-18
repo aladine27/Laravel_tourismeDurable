@@ -27,6 +27,10 @@
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="#">Événements</a>
                             </li>
+                              <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" href="{{ route('guidetour.client.index') }}">Tours</a>
+                </li>
+                            
                         </ul>
                     </div>
                 </div>

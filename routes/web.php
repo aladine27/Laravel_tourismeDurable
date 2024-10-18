@@ -29,6 +29,15 @@ require __DIR__.'/auth.php';
 Route::get('/home', [HomePageController::class, 'home'])->name('home');
 
 // Resource Routes
+// Route to display all available tours for clients as cards
+Route::get('/tours/client', [TourController::class, 'clientIndex'])->name('tours.client.index');
+
+// Route to handle the participation in a tour
+Route::post('/tours/participate/{id}', [TourController::class, 'participate'])->name('tours.participate');
+Route::get('/guidetours/client', [GuideTourController::class, 'clientIndex'])->name('guidetours.client.index');
+
+Route::get('/tours-client', [GuideTourController::class, 'clientIndex'])->name('guidetour.client.index');
+
 Route::resource('destinations', DestinationController::class);
 Route::resource('guides', GuideController::class);
 Route::resource('tours', TourController::class);
