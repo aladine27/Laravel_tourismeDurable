@@ -24,14 +24,27 @@ require __DIR__.'/auth.php';
 Route::resource('guides', GuideController::class);
 Route::resource('tours', TourController::class);
 
+<<<<<<< Updated upstream
 // Routes pour gérer l'affectation des guides à un tour
+=======
+
+>>>>>>> Stashed changes
 Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
 Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
 Route::resource('guidetours', GuideTourController::class);
 
+<<<<<<< Updated upstream
 Route::resource('events', EventController::class);
 Route::resource('tickets' , TicketController::class);
 
+=======
+Route::get('/tours/client', [TourController::class, 'clientIndex'])->name('tours.client.index');
+
+
+Route::post('/tours/reserve/{id}', [TourController::class, 'reserve'])->name('tours.reserve');
+
+// Artisan command route
+>>>>>>> Stashed changes
 Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
