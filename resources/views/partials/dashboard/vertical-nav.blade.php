@@ -1,3 +1,5 @@
+
+<div class="sidebar-wrapper" style="height: 100vh; overflow-y: auto;">
 <ul class="navbar-nav iq-main-menu"  id="sidebar">
     <li class="nav-item static-item">
         <a class="nav-link static-item disabled" href="#" tabindex="-1">
@@ -158,9 +160,5 @@
         </a>
 </li>
 
-
-
-
-
-
 </ul>
+</div>
