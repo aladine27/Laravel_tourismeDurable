@@ -20,14 +20,8 @@
 
 
     <li><hr class="hr-horizontal"></li>
-    <li class="nav-item static-item">
-        <a class="nav-link static-item disabled" href="#" tabindex="-1">
-            <span class="default-icon">Pages</span>
-            <span class="mini-icon">-</span>
-        </a>
-    </li>
+  
     <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-special-pages" role="button"  aria-expanded="false" aria-controls="sidebar-special-pages">
 
      <li class="nav-item">
         <a class="nav-link {{ activeRoute(route('tours.index')) }}" href="{{ route('tours.index') }}">
@@ -107,7 +101,29 @@
             <span class="item-name">Menus</span>
         </a>
 </li>
-
+ <!-- Events Link -->
+ <li class="nav-item">
+        <a class="nav-link {{ activeRoute(route('events.index')) }}" aria-current="page" href="{{ route('events.index') }}">
+            <i class="icon">
+            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.4" d="M3 6.5C3 5.12 4.12 4 5.5 4H18.5C19.88 4 21 5.12 21 6.5V17.5C21 18.88 19.88 20 18.5 20H5.5C4.12 20 3 18.88 3 17.5V6.5Z" fill="currentColor"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M16 11H8V13H16V11Z" fill="currentColor"></path>
+            </svg>
+            </i>
+            <span class="item-name">Evenements</span>
+        </a>
+</li>
+ <!-- Destination Link -->
+ <li class="nav-item">
+        <a class="nav-link {{ activeRoute(route('destinations.index')) }}" aria-current="page" href="{{ route('destinations.index') }}">
+            <i class="icon">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z" clip-rule="evenodd"/>
+            </svg>
+            </i>
+            <span class="item-name">Destinations</span>
+        </a>
+</li>
  <!-- Trips Link -->
  <li class="nav-item">
         <a class="nav-link {{ activeRoute(route('gestionVoyage.index')) }}" aria-current="page" href="{{ route('gestionVoyage.index') }}">
