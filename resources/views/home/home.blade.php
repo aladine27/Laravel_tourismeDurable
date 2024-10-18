@@ -1,57 +1,60 @@
-<x-app-layout :assets="$assets ?? []" :showSidebar="false">
-    <div class="home-content">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="hero-content text-center">
-                <h1 class="display-4">Découvrez les Meilleurs Restaurants et Destinations du Monde</h1>
-                <p class="lead">Plongez dans un voyage culinaire et culturel à travers nos sélections.</p>
-                <a href="#restaurants" class="btn btn-hero">Explorez les Restaurants</a>
-            </div>
-        </section>
-
-        <!-- Big Section as Slides -->
-        <div id="restaurants" class="restaurant-slider-section mb-5">
-            <div class="header-section">
-                <h2 class="section-title">Meilleur Sélection des Restaurants</h2>
-            </div>
-
-            <div class="restaurant-slider">
-                @foreach($restaurants as $restaurant)
-                    <div class="restaurant-item">
-                        <div class="restaurant-img-overlay">
-                            <img src="{{ asset('storage/' . $restaurant->restaurant_image) }}" alt="Restaurant Image" class="img-fluid fixed-size-image rounded">
-                            <div class="overlay">
-                                <h3>{{ $restaurant->name }}</h3>
-                                <p>{{ $restaurant->description }}</p>
-                            </div>
-                        </div>
+<x-app-layout layout="simple" :assets="$assets ?? []">
+    <span class="uisheet screen-darken"></span>
+    <div class="header" style="background: url({{asset('images/dashboard/top-image.jpg')}}); background-size: cover; background-repeat: no-repeat; height: 100vh;position: relative;">
+        <div class="container">
+            <nav class="nav navbar navbar-expand-lg navbar-light top-1 rounded">
+                <div class="container-fluid">
+                    <a class="navbar-brand mx-2" href="#">
+                        <svg width="30" class="text-primary" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="-0.757324" y="19.2427" width="28" height="4" rx="2" transform="rotate(-45 -0.757324 19.2427)" fill="currentColor"></rect>
+                            <rect x="7.72803" y="27.728" width="28" height="4" rx="2" transform="rotate(-45 7.72803 27.728)" fill="currentColor"></rect>
+                            <rect x="10.5366" y="16.3945" width="16" height="4" rx="2" transform="rotate(45 10.5366 16.3945)" fill="currentColor"></rect>
+                            <rect x="10.5562" y="-0.556152" width="28" height="4" rx="2" transform="rotate(45 10.5562 -0.556152)" fill="currentColor"></rect>
+                        </svg>
+                        <h5 class="logo-title">Tourisme Durable</h5>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-2" aria-controls="navbar-2" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar-2">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-start">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">Restaurants</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">Voyageurs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">Événements</a>
+                            </li>
+                        </ul>
                     </div>
-                @endforeach
+                </div>
+            </nav>
+            <div class="tourisme-durable-content text-center text-white mt-5">
+                <p class="lead">
+                    Le tourisme durable est une forme de tourisme qui respecte, préserve et met en valeur les ressources naturelles, culturelles et sociales d'un territoire. Il vise à minimiser les impacts négatifs sur l'environnement et à maximiser les retombées économiques et sociales pour les communautés locales.
+                </p>
+                <img src="{{ asset('storage/photos/istockphoto-1372488167-612x612.jpg') }}" alt="Tourisme Durable" class="img-fluid mb-4 tourisme-durable-image">
             </div>
         </div>
+    </div>
 
-        <!-- Button to View All Restaurants -->
-        <div class="text-center mt-4">
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#allRestaurants" aria-expanded="false" aria-controls="allRestaurants">
-                Voir Tous les Restaurants
-            </button>
-        </div>
-
-        <!-- Collapsible Section for All Restaurants -->
-        <div class="collapse mt-4" id="allRestaurants">
-            <div class="row">
-                @foreach($restaurants as $restaurant)
-                    <div class="col-md-4 mb-4">
-                        <div class="restaurant-card">
-                            <img src="{{ asset('storage/' . $restaurant->restaurant_image) }}" alt="Restaurant Image" class="img-fluid rounded">
-                            <div class="restaurant-info">
-                                <h5>{{ $restaurant->name }}</h5>
-                                <p>{{ $restaurant->description }}</p>
-                            </div>
+    <div class="container mt-5">
+        <h2 class="section-title text-center">Restaurants Recommandés</h2>
+        <div class="row justify-content-center">
+            @foreach($restaurants as $restaurant)
+                <div class="col-md-3 mb-4">
+                    <div class="restaurant-card">
+                        <img src="{{ asset('storage/' . $restaurant->restaurant_image) }}" alt="Restaurant Image" class="img-fluid rounded">
+                        <div class="restaurant-info">
+                            <h5>{{ $restaurant->name }}</h5>
+                            <p>{{ $restaurant->description }}</p>
+                            <a href="#reservation" class="btn btn-reservation">Faire une Réservation</a>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
     </div>
 
@@ -65,45 +68,33 @@
 
         .home-content {
             padding: 50px;
+            max-width: 100%;
         }
 
-        .hero-section {
-            background-image: url('https://example.com/beautiful-image.jpg'); /* Replace with a beautiful background */
+        .header {
+            background: url({{asset('images/dashboard/top-image.jpg')}}) no-repeat center center;
             background-size: cover;
-            background-position: center;
-            padding: 100px 0;
-            color: white;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: 100vh;
+            position: relative;
         }
 
-        .hero-content h1 {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .hero-content p {
-            font-size: 1.5rem;
+        .navbar {
             margin-bottom: 20px;
         }
 
-        .btn-hero {
-            background-color: #4a4e69; /* Neutral color */
-            padding: 10px 20px;
-            border-radius: 5px;
-            color: white;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            transition: background-color 0.3s;
+        .tourisme-durable-content {
+            margin-top: 50px;
         }
 
-        .btn-hero:hover {
-            background-color: #9a8c98; /* Lighter neutral */
+        .tourisme-durable-image {
+            max-width: 100%;
+            height: auto;
+            width: 80%;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .section-title {
-            text-align: center;
             font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 30px;
@@ -111,61 +102,16 @@
             text-transform: uppercase;
         }
 
-        .restaurant-slider {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .restaurant-item {
-            position: relative;
-        }
-
-        .restaurant-img-overlay {
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .restaurant-img-overlay .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .restaurant-img-overlay:hover .overlay {
-            opacity: 1;
-        }
-
-        .restaurant-img-overlay h3 {
-            color: #fff;
-            font-size: 2rem;
-        }
-
-        .restaurant-img-overlay p {
-            color: #ddd;
-            font-size: 1.2rem;
-        }
-
         .restaurant-card {
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .restaurant-card:hover {
             transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .restaurant-info {
@@ -175,18 +121,35 @@
         }
 
         .restaurant-info h5 {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: #333;
+            margin-bottom: 10px;
         }
 
         .restaurant-info p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #555;
+            margin-bottom: 15px;
+        }
+
+        .btn-reservation {
+            background-color: #4CAF50; /* Green color for reservation */
+            padding: 8px 16px;
+            border-radius: 5px;
+            color: white;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+
+        .btn-reservation:hover {
+            background-color: #45a049;
         }
 
         .fixed-size-image {
             width: 100%;
-            height: 350px;
+            height: 200px;
             object-fit: cover;
             border-radius: 15px;
         }
@@ -205,40 +168,15 @@
         .btn-primary:hover {
             background-color: #0056b3;
         }
+
+        aside.sidebar {
+            display: none !important; /* Forcefully hides the sidebar */
+        }
     </style>
 
-    <!-- Slick Slider Integration -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('.restaurant-slider').slick({
-                dots: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 1,
-                            infinite: true,
-                            dots: true
-                        }
-                    },
-                    {
-                        breakpoint: 600,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }
-                ]
-            });
-        });
-    </script>
+    <!-- Bootstrap and jQuery Integration -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </x-app-layout>
