@@ -1,10 +1,15 @@
 <?php
 
 // Controllers
+
+
+use App\Http\Controllers\DestinationController;
+
 use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\GuideController;
 use App\Http\Controllers\TourController;
+
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Security\RolePermission;
@@ -26,6 +31,9 @@ use App\Http\Controllers\YourCustomController; // Add your custom controller her
 
 require __DIR__.'/auth.php';
 
+
+Route::resource('destinations', DestinationController::class);
+
 Route::resource('guides', GuideController::class);
 Route::resource('tours', TourController::class);
 Route::resource('restaurants', RestaurantController::class);
@@ -35,6 +43,7 @@ Route::resource('menus', MenuController::class);
 Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
 Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
 Route::resource('guidetours', GuideTourController::class);
+
 
 Route::resource('events', EventController::class);
 Route::resource('tickets' , TicketController::class);
