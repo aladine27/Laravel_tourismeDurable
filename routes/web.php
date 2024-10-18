@@ -2,7 +2,8 @@
 
 // Controllers
 
-
+use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\DestinationController;
 
 use App\Http\Controllers\AccommodationController;
@@ -25,9 +26,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuideTourController;
 
 use App\Http\Controllers\TicketController;
-use App\Http\Controllers\YourCustomController; // Add your custom controller here
 
 
+use App\Http\Controllers\HomePageController;
 
 require __DIR__.'/auth.php';
 
@@ -51,6 +52,8 @@ Route::resource('tickets' , TicketController::class);
 Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
+Route::get('/home', [HomePageController::class, 'home'])->name('home');
+
 
 //byserine routes
 Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
