@@ -69,7 +69,7 @@ class BookingController extends Controller
         $booking->update([
             'check_in_date' => $request->check_in_date,
             'check_out_date' => $request->check_out_date,
-            'total_price' => $total,
+            'total_price' => $days * $total,
             'accommodation_id' => $request->accommodation_id,
         ]);
 
