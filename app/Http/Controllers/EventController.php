@@ -50,12 +50,21 @@ class EventController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'location' => 'required|string', // Validez que la location est une chaîne JSON
         ]);
-
-        $event->update($request->all());
-
+    
+        // Décodez la location de JSON en tableau
+        $location = json_decode($request->location, true);
+    
+        $event->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'location' => $location, // Assurez-vous que la colonne location dans la DB peut stocker un tableau
+        ]);
+    
         return redirect()->route('events.index')->with('success', 'Event updated successfully.');
     }
+    
 
     public function destroy(Event $event)
     {
