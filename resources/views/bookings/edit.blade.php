@@ -36,13 +36,6 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="total_price" class="form-label">Prix total</label>
-                <input type="number" name="total_price" id="total_price" class="form-control" value="{{ old('total_price', $booking->total_price) }}" required>
-                @error('total_price')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
 
             <button type="submit" class="btn btn-primary">Modifier Réservation</button>
             <a href="{{ route('bookings.index') }}" class="btn btn-secondary">Annuler</a>
