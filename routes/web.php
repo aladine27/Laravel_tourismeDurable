@@ -32,7 +32,10 @@ Route::resource('tours', TourController::class);
 Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
 Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
 Route::resource('guidetours', GuideTourController::class);
+// Route pour afficher tous les tours disponibles
+Route::get('/tours/client', [TourController::class, 'clientIndex'])->name('tours.client.index');
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 Route::resource('events', EventController::class);
 Route::resource('tickets' , TicketController::class);
@@ -43,6 +46,10 @@ Route::get('/tours/client', [TourController::class, 'clientIndex'])->name('tours
 
 Route::post('/tours/reserve/{id}', [TourController::class, 'reserve'])->name('tours.reserve');
 
+=======
+// Route pour réserver un tour
+Route::post('/tours/reserve/{id}', [TourController::class, 'reserve'])->name('tours.reserve');
+>>>>>>> Stashed changes
 // Artisan command route
 >>>>>>> Stashed changes
 Route::get('/storage', function () {

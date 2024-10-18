@@ -57,13 +57,37 @@ class TourController extends Controller
         $tour->delete();
         return redirect()->route('tours.index')->with('success', 'Tour supprimé avec succès.');
     }
+<<<<<<< Updated upstream
  public function clientIndex()
     {
         // Récupérer tous les tours avec nb_place > 0
+=======
+      public function show($id)
+    {
+        $tour = Tour::findOrFail($id);
+        return view('tours.show', compact('tour'));
+    }
+    public function reserve(Request $request, $id)
+{
+    $tour = Tour::findOrFail($id); // Trouver le tour par ID
+
+    if ($tour->nb_place > 0) { // Vérifier si des places sont disponibles
+        $tour->nb_place--; // Réduire le nombre de places de 1
+        $tour->save(); // Sauvegarder les modifications dans la base de données
+
+        return redirect()->route('tours.client.index')->with('success', 'Inscription réussie au tour.');
+    }
+
+    return redirect()->route('tours.client.index')->with('error', 'Aucune place disponible.');
+}
+ public function clientIndex()
+    {
+>>>>>>> Stashed changes
         $tours = Tour::where('nb_place', '>', 0)->get();
         return view('tours.clientIndex', compact('tours'));
     }
 
+<<<<<<< Updated upstream
     public function reserve(Request $request, $id)
     {
         $tour = Tour::findOrFail($id);
@@ -86,5 +110,7 @@ class TourController extends Controller
 
     
 
+=======
+>>>>>>> Stashed changes
 
 }
