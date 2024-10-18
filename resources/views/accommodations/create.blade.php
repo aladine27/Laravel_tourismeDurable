@@ -1,27 +1,27 @@
 <x-app-layout :assets="$assets ?? []">
     <div class="accommodation-content">
-        <h1>Create Accommodation</h1>
+        <h1>Créer Hébergement</h1>
 
         <form action="{{ route('accommodations.store') }}" method="POST">
             @csrf
 
             <div class="mb-3">
-                <label for="name" class="form-label">Accommodation Name</label>
+                <label for="name" class="form-label">Nom d'hébergement</label>
                 <input type="text" name="name" id="name" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
+                <label for="address" class="form-label">Adresse</label>
                 <input type="text" name="address" id="address" class="form-control" required>
             </div>
 
             <div class="mb-3">
-                <label for="price_per_night" class="form-label">Price per Night</label>
+                <label for="price_per_night" class="form-label">Prix par nuit</label>
                 <input type="number" name="price_per_night" id="price_per_night" class="form-control" required>
             </div>
 
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Create Accommodation</button>
-                <a href="{{ route('accommodations.index') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Créer Hébergement</button>
+                <a href="{{ route('accommodations.index') }}" class="btn btn-secondary">Annuler</a>
             </div>
         </form>
     </div>

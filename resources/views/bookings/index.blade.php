@@ -1,17 +1,17 @@
 <x-app-layout :assets="$assets ?? []">
     <div class="bookings-content">
-        <h1>Bookings</h1>
-        <a href="{{ route('bookings.create') }}" class="btn btn-primary mb-3">Create Booking</a>
+        <h1>Réservations</h1>
+        <a href="{{ route('bookings.create') }}" class="btn btn-primary mb-3">Créer Réservation</a>
 
         <!-- Table to display the list of bookings -->
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Accommodation Name</th>
+                <th>Nom d'hébergement</th>
                 <th>Check-in Date</th>
                 <th>Check-out Date</th>
-                <th>Total Price</th>
+                <th>Prix total</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -27,13 +27,13 @@
                     <td>${{ $booking->total_price }}</td>
                     <td>
                         <!-- Button to edit the booking -->
-                        <a href="{{ route('bookings.edit', $booking) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ route('bookings.edit', $booking) }}" class="btn btn-warning btn-sm">Modifier</a>
 
                         <!-- Form to delete the booking -->
                         <form action="{{ route('bookings.destroy', $booking) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                         </form>
                     </td>
                 </tr>
