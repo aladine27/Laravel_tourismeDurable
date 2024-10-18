@@ -23,7 +23,7 @@
                             <i class="fas fa-dollar-sign"></i>
                             <div>
                                 <h5>Prix par nuit</h5>
-                                <p>${{ $accommodation->price_per_night }}</p>
+                                <p>{{ $accommodation->price_per_night }} DT</p>
                             </div>
                         </div>
                     </div>

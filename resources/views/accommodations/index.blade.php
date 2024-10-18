@@ -1,6 +1,6 @@
 <x-app-layout :assets="$assets ?? []">
     <div class="accommodations-content">
-        <h1>Accommodations</h1>
+        <h1>Hébergements</h1>
         <a href="{{ route('accommodations.create') }}" class="btn btn-primary mb-3">Créer hébergement</a>
 
         <!-- Table to display the list of accommodations -->
@@ -21,8 +21,8 @@
                     <td>
                         <a href="{{ route('accommodations.show', $accommodation) }}">{{ $accommodation->name }}</a>
                     </td>
-                    <td>{{ $accommodation->address }}</td>
-                    <td>{{ $accommodation->price_per_night }} $</td>
+                    <td>{{ $accommodation->getAddress() }}</td>
+                    <td>{{ $accommodation->price_per_night }} DT</td>
                     <td>
                         <!-- Button to edit the accommodation -->
                         <a href="{{ route('accommodations.edit', $accommodation) }}" class="btn btn-warning btn-sm">Modifier</a>

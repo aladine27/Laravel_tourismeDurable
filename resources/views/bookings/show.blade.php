@@ -34,7 +34,7 @@
                             <i class="fas fa-dollar-sign"></i>
                             <div>
                                 <h5>Prix total</h5>
-                                <p>${{ $booking->total_price }}</p>
+                                <p>{{ $booking->total_price }} DT</p>
                             </div>
                         </div>
                     </div>
