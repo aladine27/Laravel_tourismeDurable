@@ -1,5 +1,5 @@
 <x-app-layout :assets="$assets ?? []">
-    <div class="destination-content">
+    <div class="destination-content mt-4">
         <h1>Create Destination</h1>
 
         <form action="{{ route('destinations.store') }}" method="POST" enctype="multipart/form-data">
