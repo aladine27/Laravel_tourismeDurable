@@ -27,7 +27,7 @@ require __DIR__.'/auth.php';
 
 // Public Routes
 Route::get('/home', [HomePageController::class, 'home'])->name('home');
-
+Route::get('/front', function () {return view('template.front_office');})->name('front');
 /////////////// Routes pour l'admin//////////////////////////////////////////////////////////
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
