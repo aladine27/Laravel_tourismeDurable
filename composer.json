@@ -16,7 +16,7 @@
         "laravel/tinker": "^2.7",
         "laravelcollective/html": "^6.2",
         "spatie/laravel-medialibrary": "^9.0",
-        "spatie/laravel-permission": "^6.9",
+        "spatie/laravel-permission": "*",
         "yajra/laravel-datatables": "^9.0"
     },
     "require-dev": {

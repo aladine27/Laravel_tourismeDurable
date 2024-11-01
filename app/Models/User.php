@@ -13,6 +13,9 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
+    const ROLE_USER = 'user';
+    const ROLE_ADMIN = 'admin';
+    
     use HasFactory, Notifiable, HasRoles, InteractsWithMedia;
 
     /**
