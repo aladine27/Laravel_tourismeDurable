@@ -33,17 +33,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
     // autres routes réservées aux administrateurs
     // Resource Routes
-Route::resource('destinations', DestinationController::class);
-Route::resource('guides', GuideController::class);
-Route::resource('tours', TourController::class);
-Route::resource('restaurants', RestaurantController::class);
-Route::resource('menus', MenuController::class);
-Route::resource('events', EventController::class);
-Route::resource('tickets', TicketController::class);
+
 // Routes for managing guide assignments to a tour
-Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
-Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
-Route::resource('guidetours', GuideTourController::class);
+
 
 // Byserine routes
 // Route::resource('gestionVoyageur', TravelerController::class);
@@ -77,6 +69,17 @@ Route::get('/ui', [HomeController::class, 'uisheet'])->name('uisheet');
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('accommodations', AccommodationController::class);
     Route::resource('bookings', BookingController::class);
+
+    Route::resource('events', EventController::class);
+    Route::resource('tickets', TicketController::class);
+    Route::resource('destinations', DestinationController::class);
+Route::resource('guides', GuideController::class);
+Route::resource('tours', TourController::class);
+Route::resource('restaurants', RestaurantController::class);
+Route::resource('menus', MenuController::class);
+Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
+Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
+Route::resource('guidetours', GuideTourController::class);
 
     // Permission Module
     Route::get('/role-permission', [RolePermission::class, 'index'])->name('role.permission.list');
