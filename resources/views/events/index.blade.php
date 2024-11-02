@@ -22,9 +22,9 @@
                         <td>
                             <a href="{{ route('events.show', $event) }}">{{ $event->name }}</a>
                         </td>
-                        <td>{{ $event->description }}</td>
+                        <td class="text-wrap">{{ $event->description }}</td> <!-- Add class for word wrapping -->
                         <td>{{ \Carbon\Carbon::parse($event->date)->format('d-m-Y') }}</td>
-                        <td>{{ $event->getAddress() }}</td> <!-- Use the getAddress method -->
+                        <td class="text-wrap">{{ $event->getAddress() }}</td> <!-- Use the getAddress method -->
                         <td>
                             <!-- Button to edit the event -->
                             <a href="{{ route('events.edit', $event) }}" class="btn btn-warning btn-sm">Edit</a>
@@ -49,6 +49,19 @@
             border: 1px solid #ddd;
             background-color: #f9f9f9;
             border-radius: 5px;
+        }
+
+        /* Add styles for word wrapping */
+        .text-wrap {
+            white-space: normal; /* Allows text to wrap */
+            word-wrap: break-word; /* Breaks long words */
+            max-width: 200px; /* Set a maximum width for the cell */
+        }
+
+        /* Optional: Adjust the table to handle overflow better */
+        table {
+            table-layout: auto; /* Let the browser decide the layout */
+            width: 100%; /* Full width */
         }
     </style>
 </x-app-layout>

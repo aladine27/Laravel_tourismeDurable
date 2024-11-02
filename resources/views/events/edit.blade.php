@@ -21,12 +21,10 @@
                 @enderror
             </div>
             <div class="mb-3">
-    <label for="location" class="form-label">Event Location</label>
-    <input type="text" name="location" id="location" class="form-control" value="{{ old('location', $event->location) }}" required>
-    @error('location')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
+                <label for="location" class="form-label">Location</label>
+                <div id="map" style="height: 300px; width: 100%;"></div>
+                <input type="hidden" name="location" id="location" required>
+            </div>
 <div class="mb-3">
     <label for="date" class="form-label">Event Date</label>
     <input type="date" name="date" id="date" class="form-control" value="{{ old('date', $event->date) }}" required>
@@ -39,6 +37,27 @@
             <a href="{{ route('events.index') }}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const map = L.map('map').setView([35.6895, 139.6917], 13); // Default to Tokyo
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+
+            const marker = L.marker([35.6895, 139.6917]).addTo(map); // Default marker
+
+            map.on('click', function(e) {
+    const lat = e.latlng.lat;
+    const lng = e.latlng.lng;
+    marker.setLatLng([lat, lng]);
+    document.getElementById('location').value = JSON.stringify({ lat: lat, lng: lng });
+});
+
+        });
+    </script>
 
     <style>
         .event-form {
