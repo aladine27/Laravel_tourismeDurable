@@ -22,14 +22,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuideTourController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\FrontPageController;
 
 require __DIR__.'/auth.php';
 
 // Public Routes
 Route::get('/home', [HomePageController::class, 'home'])->name('home');
-Route::get('/front', function () {return view('template.front_office');})->name('front');
+Route::get('/', [FrontPageController::class, 'showFrontOffice'])->name('front');
+Route::get('/front', [FrontPageController::class, 'showFrontOffice'])->name('front');
+Route::get('/front/trips', [TripController::class, 'showTripsList'])->name('trips.list');
+
 /////////////// Routes pour l'admin//////////////////////////////////////////////////////////
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
     Route::get('/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
     // autres routes réservées aux administrateurs
     // Resource Routes
@@ -87,7 +93,6 @@ Route::resource('guidetours', GuideTourController::class);
     Route::resource('role', RoleController::class);
 
     // Dashboard Routes
-    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
     // Users Module
     Route::resource('users', UserController::class);
