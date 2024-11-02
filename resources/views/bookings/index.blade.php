@@ -22,9 +22,9 @@
                     <td>
                         <a href="{{ route('accommodations.show', $booking->accommodation) }}">{{ $booking->accommodation->name }}</a>
                     </td>
-                    <td>{{ \Carbon\Carbon::parse($booking->check_in)->format('d M Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($booking->check_out)->format('d M Y') }}</td>
-                    <td>${{ $booking->total_price }}</td>
+                    <td>{{ \Carbon\Carbon::parse($booking->check_in_date)->format('d M Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($booking->check_out_date)->format('d M Y') }}</td>
+                    <td>{{ $booking->total_price }} DT</td>
                     <td>
                         <!-- Button to edit the booking -->
                         <a href="{{ route('bookings.edit', $booking) }}" class="btn btn-warning btn-sm">Modifier</a>

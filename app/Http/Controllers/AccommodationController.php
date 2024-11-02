@@ -48,9 +48,10 @@ class AccommodationController extends Controller
             'price_per_night' => 'required|integer',
         ]);
 
+        $location = json_decode($request->address, true);
         $accommodation->update([
             'name' => $request->name,
-            'address' => $request->address,
+            'address' => $location,
             'price_per_night' => $request->price_per_night,
         ]);
 

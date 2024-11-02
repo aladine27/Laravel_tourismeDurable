@@ -28,11 +28,7 @@
                 <input type="date" name="check_out_date" id="check_out" class="form-control" required>
             </div>
 
-            <!-- Total Price -->
-            <div class="mb-3">
-                <label for="total_price" class="form-label">Prix total</label>
-                <input type="number" name="total_price" id="total_price" class="form-control" required>
-            </div>
+
 
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Créer réservation</button>

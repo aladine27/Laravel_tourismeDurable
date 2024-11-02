@@ -27,17 +27,12 @@ require __DIR__.'/auth.php';
 
 // Public Routes
 Route::get('/home', [HomePageController::class, 'home'])->name('home');
-
-// Resource Routes
-// Route to display all available tours for clients as cards
-Route::get('/tours/client', [TourController::class, 'clientIndex'])->name('tours.client.index');
-
-// Route to handle the participation in a tour
-Route::post('/tours/participate/{id}', [TourController::class, 'participate'])->name('tours.participate');
-Route::get('/guidetours/client', [GuideTourController::class, 'clientIndex'])->name('guidetours.client.index');
-
-Route::get('/tours-client', [GuideTourController::class, 'clientIndex'])->name('guidetour.client.index');
-
+Route::get('/front', function () {return view('template.front_office');})->name('front');
+/////////////// Routes pour l'admin//////////////////////////////////////////////////////////
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
+    // autres routes réservées aux administrateurs
+    // Resource Routes
 Route::resource('destinations', DestinationController::class);
 Route::resource('guides', GuideController::class);
 Route::resource('tours', TourController::class);
@@ -45,24 +40,35 @@ Route::resource('restaurants', RestaurantController::class);
 Route::resource('menus', MenuController::class);
 Route::resource('events', EventController::class);
 Route::resource('tickets', TicketController::class);
-
 // Routes for managing guide assignments to a tour
 Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
 Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
 Route::resource('guidetours', GuideTourController::class);
 
+// Byserine routes
+// Route::resource('gestionVoyageur', TravelerController::class);
+Route::resource('gestionVoyage', TripController::class);
+Route::resource('gestionVoyageur', TravelerController::class);
+
+// Route::get('/gestionVoyageur/{id}/edit', [TravelerController::class, 'edit'])->name('gestionVoyageur.edit');
+// Route::put('/gestionVoyageur/{id}', [TravelerController::class, 'update'])->name('gestionVoyageur.update');
+// Route::delete('/gestionVoyageur/{id}', [TravelerController::class, 'destroy'])->name('gestionVoyageur.destroy');
+
+});
+
+/////////////////// Routes pour les utilisateurs (front office)//////////////////////////////////////////
+Route::middleware(['auth', 'role:user'])->group(function () {
+    // Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
+
+    // Route::get('/front-office', [FrontOfficeController::class, 'index'])->name('frontOffice');
+});
+
+
+
 // Artisan command route
 Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
-
-// Byserine routes
-Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
-Route::resource('gestionVoyageur', TravelerController::class);
-Route::resource('gestionVoyage', TripController::class);
-Route::get('/gestionVoyageur/{id}/edit', [TravelerController::class, 'edit'])->name('gestionVoyageur.edit');
-Route::put('/gestionVoyageur/{id}', [TravelerController::class, 'update'])->name('gestionVoyageur.update');
-Route::delete('/gestionVoyageur/{id}', [TravelerController::class, 'destroy'])->name('gestionVoyageur.destroy');
 
 // UI Pages Routes
 Route::get('/ui', [HomeController::class, 'uisheet'])->name('uisheet');

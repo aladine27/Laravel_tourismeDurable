@@ -11,7 +11,8 @@
             </div>
             <div class="mb-3">
                 <label for="address" class="form-label">Adresse</label>
-                <input type="text" name="address" id="address" class="form-control" required>
+                <div id="map" style="height: 300px; width: 100%;"></div>
+                <input type="hidden" name="address" id="address" class="form-control" required>
             </div>
 
             <div class="mb-3">
@@ -28,13 +29,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const map = L.map('map').setView([35.6895, 139.6917], 13); // Default to Tokyo
+            const map = L.map('map').setView([36.8065, 10.1815], 13); // Default to Tunis, Tunisia
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
             }).addTo(map);
 
-            const marker = L.marker([35.6895, 139.6917]).addTo(map); // Default marker
+            const marker = L.marker([36.8065, 10.1815]).addTo(map); // Default marker in Tunis
 
             map.on('click', function(e) {
                 const lat = e.latlng.lat;
@@ -44,6 +45,7 @@
             });
         });
     </script>
+
 
     <style>
         .accommodation-content {
