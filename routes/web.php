@@ -1,6 +1,11 @@
 <?php
 
 // Controllers
+use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\AccommodationController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\GuideController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\EventController;
@@ -13,48 +18,66 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\TravelerController;
 use App\Http\Controllers\TripController;
 use Illuminate\Support\Facades\Artisan;
-// Packages
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuideTourController;
-
 use App\Http\Controllers\TicketController;
-use App\Http\Controllers\YourCustomController; // Add your custom controller here
-
-
+use App\Http\Controllers\HomePageController;
 
 require __DIR__.'/auth.php';
 
+// Public Routes
+Route::get('/home', [HomePageController::class, 'home'])->name('home');
+Route::get('/front', function () {return view('template.front_office');})->name('front');
+/////////////// Routes pour l'admin//////////////////////////////////////////////////////////
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
+    // autres routes réservées aux administrateurs
+    // Resource Routes
+Route::resource('destinations', DestinationController::class);
 Route::resource('guides', GuideController::class);
 Route::resource('tours', TourController::class);
 Route::resource('restaurants', RestaurantController::class);
 Route::resource('menus', MenuController::class);
-
-// Routes pour gérer l'affectation des guides à un tour
+Route::resource('events', EventController::class);
+Route::resource('tickets', TicketController::class);
+// Routes for managing guide assignments to a tour
 Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
 Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
 Route::resource('guidetours', GuideTourController::class);
 
-Route::resource('events', EventController::class);
-Route::resource('tickets' , TicketController::class);
+// Byserine routes
+// Route::resource('gestionVoyageur', TravelerController::class);
+Route::resource('gestionVoyage', TripController::class);
+Route::resource('gestionVoyageur', TravelerController::class);
 
+// Route::get('/gestionVoyageur/{id}/edit', [TravelerController::class, 'edit'])->name('gestionVoyageur.edit');
+// Route::put('/gestionVoyageur/{id}', [TravelerController::class, 'update'])->name('gestionVoyageur.update');
+// Route::delete('/gestionVoyageur/{id}', [TravelerController::class, 'destroy'])->name('gestionVoyageur.destroy');
+
+});
+
+/////////////////// Routes pour les utilisateurs (front office)//////////////////////////////////////////
+Route::middleware(['auth', 'role:user'])->group(function () {
+    // Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
+
+    // Route::get('/front-office', [FrontOfficeController::class, 'index'])->name('frontOffice');
+});
+
+
+
+// Artisan command route
 Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
 
-//byserine routes
-Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
-Route::resource('gestionVoyageur', TravelerController::class);
-Route::resource('gestionVoyage', TripController::class);
-Route::get('/gestionVoyageur/{id}/edit', [TravelerController::class, 'edit'])->name('gestionVoyageur.edit');
-Route::put('/gestionVoyageur/{id}', [TravelerController::class, 'update'])->name('gestionVoyageur.update');
-Route::delete('/gestionVoyageur/{id}', [TravelerController::class, 'destroy'])->name('gestionVoyageur.destroy');
-
-
-//UI Pages Routs
 // UI Pages Routes
 Route::get('/ui', [HomeController::class, 'uisheet'])->name('uisheet');
 
+// Authenticated Routes
 Route::group(['middleware' => 'auth'], function () {
+    Route::resource('accommodations', AccommodationController::class);
+    Route::resource('bookings', BookingController::class);
+
     // Permission Module
     Route::get('/role-permission', [RolePermission::class, 'index'])->name('role.permission.list');
     Route::resource('permission', PermissionController::class);
