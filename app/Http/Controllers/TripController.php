@@ -104,4 +104,13 @@ class TripController extends Controller
 
         return redirect()->route('gestionVoyage.index')->with('success', 'Voyage supprimé avec succès.');
     }
+
+    public function showFrontOffice()
+    {
+        // Fetch the first three trips and their associated traveler count
+        $trips = Trip::withCount('travelers')->take(3)->get();
+        
+        // Pass the trips data to the front_office view
+        return view('template.front_office', compact('trips'));
+    }
 }

@@ -22,12 +22,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuideTourController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\FrontPageController;
 
 require __DIR__.'/auth.php';
 
 // Public Routes
 Route::get('/home', [HomePageController::class, 'home'])->name('home');
-Route::get('/front', function () {return view('template.front_office');})->name('front');
+// Route::get('/front', function () {return view('template.front_office');})->name('front');
+Route::get('/front', [FrontPageController::class, 'showFrontOffice'])->name('front');
+
 /////////////// Routes pour l'admin//////////////////////////////////////////////////////////
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
