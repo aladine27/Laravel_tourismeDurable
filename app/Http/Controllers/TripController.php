@@ -104,4 +104,13 @@ class TripController extends Controller
 
         return redirect()->route('gestionVoyage.index')->with('success', 'Voyage supprimé avec succès.');
     }
+
+    public function showTripsList()
+    {
+        // Fetch all trips with their associated traveler count
+        $trips = Trip::withCount('travelers')->get();
+        
+        // Pass the trips data to the trips list view
+        return view('template.trips_list', compact('trips'));
+    }
 }
