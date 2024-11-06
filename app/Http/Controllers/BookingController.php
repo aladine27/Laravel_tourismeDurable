@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Accommodation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -25,14 +26,20 @@ class BookingController extends Controller
         $request->validate([
             'check_in_date' => 'required|date',
             'check_out_date' => 'required|date|after_or_equal:check_in_date',
-            'total_price' => 'required|integer',
             'accommodation_id' => 'required|exists:accommodations,id',
         ]);
+
+        $check_in_date = Carbon::parse($request->check_in_date);
+        $check_out_date = Carbon::parse($request->check_out_date);
+
+        $days = $check_in_date->diffInDays($check_out_date);
+
+        $total = Accommodation::find($request->accommodation_id)->price_per_night;
 
         Booking::create([
             'check_in_date' => $request->check_in_date,
             'check_out_date' => $request->check_out_date,
-            'total_price' => $request->total_price,
+            'total_price' => $days * $total,
             'accommodation_id' => $request->accommodation_id,
         ]);
 
@@ -50,15 +57,19 @@ class BookingController extends Controller
         $request->validate([
             'check_in_date' => 'required|date',
             'check_out_date' => 'required|date|after_or_equal:check_in_date',
-            'total_price' => 'required|integer',
             'accommodation_id' => 'required|exists:accommodations,id',
         ]);
+        $check_in_date = Carbon::parse($request->check_in_date);
+        $check_out_date = Carbon::parse($request->check_out_date);
 
+        $days = $check_in_date->diffInDays($check_out_date);
+
+        $total = Accommodation::find($request->accommodation_id)->price_per_night;
         // Update booking details
         $booking->update([
             'check_in_date' => $request->check_in_date,
             'check_out_date' => $request->check_out_date,
-            'total_price' => $request->total_price,
+            'total_price' => $days * $total,
             'accommodation_id' => $request->accommodation_id,
         ]);
 

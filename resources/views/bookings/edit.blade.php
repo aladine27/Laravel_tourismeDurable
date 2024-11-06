@@ -1,13 +1,13 @@
 <x-app-layout :assets="$assets ?? []">
     <div class="booking-form">
-        <h1>Edit Booking</h1>
+        <h1>Modifier Réservation</h1>
 
         <form action="{{ route('bookings.update', $booking) }}" method="POST">
             @csrf
             @method('PUT')
 
             <div class="mb-3">
-                <label for="accommodation_id" class="form-label">Accommodation</label>
+                <label for="accommodation_id" class="form-label">Hébergement</label>
                 <select name="accommodation_id" id="accommodation_id" class="form-select" required>
                     @foreach($accommodations as $accommodation)
                         <option value="{{ $accommodation->id }}" {{ old('accommodation_id', $booking->accommodation_id) == $accommodation->id ? 'selected' : '' }}>
@@ -36,16 +36,9 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="total_price" class="form-label">Total Price</label>
-                <input type="number" name="total_price" id="total_price" class="form-control" value="{{ old('total_price', $booking->total_price) }}" required>
-                @error('total_price')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
 
-            <button type="submit" class="btn btn-primary">Update Booking</button>
-            <a href="{{ route('bookings.index') }}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Modifier Réservation</button>
+            <a href="{{ route('bookings.index') }}" class="btn btn-secondary">Annuler</a>
         </form>
     </div>
 
