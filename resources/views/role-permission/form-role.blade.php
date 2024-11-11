@@ -5,7 +5,7 @@
     </div>
     <label class="form-label">Status</label>
     <div class="form-check">
-        {{ Form::radio('status', '1',old('status'), ['class' => 'form-check-input', 'id' => 'roleassigned']); }}
+        {{ Form::radio('status', '1',old('status'), ['class' => 'form-check-input', 'id' => 'roleassigned']) }}
         <label class="form-check-label" for="roleassigned">yes</label>
     </div>
     <div class="mb-3 form-check">

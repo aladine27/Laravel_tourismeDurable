@@ -13,6 +13,7 @@ class EventController extends Controller
         return view('events.index', compact('events'));
     }
 
+
     public function create()
     {
         return view('events.create');
@@ -78,4 +79,15 @@ class EventController extends Controller
         return view('events.show', compact('event')); // Pass the event to the view
     }
 
+    public function showEventList()
+    {
+        // Récupérer tous les événements avec leurs tickets associés
+        $events = Event::with('tickets')->get();
+    
+        // Passer les événements à la vue
+        return view('template.events_list', compact('events'));
+    }
+    
+    
+    
 }
