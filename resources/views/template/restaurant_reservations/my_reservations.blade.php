@@ -33,15 +33,15 @@
 </head>
 
 <body>
-    <!-- Spinner Début -->
+    <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Chargement...</span>
         </div>
     </div>
-    <!-- Spinner Fin -->
+    <!-- Spinner End -->
 
-    <!-- Navbar & En-tête Début -->
+    <!-- Navbar & Hero Start -->
     <div class="container-fluid position-relative p-0">
         <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
             <a href="" class="navbar-brand p-0">
@@ -68,47 +68,51 @@
                 <div class="row justify-content-center py-5">
                     <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
                         <h1 class="display-3 text-white mb-3 animated slideInDown">Découvrez Nos Restaurants</h1>
-                        <p class="fs-4 text-white mb-4 animated slideInDown">Trouvez les meilleurs endroits pour manger et savourer vos repas</p>
+                        <p class="fs-4 text-white mb-4 animated slideInDown">Trouvez les meilleurs endroits pour manger et profiter de vos repas</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Navbar & En-tête Fin -->
+    <!-- Navbar & Hero End -->
 
-    <!-- Restaurants Début -->
-    <div class="container-xxl py-5 destination">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Partenaires</h6>
-                <h1 class="mb-5">Choix de Restaurants</h1>
-                <!-- Ajouter le bouton "Mes Réservations" -->
-                <div class="text-center mb-4">
-                    <a href="{{ route('reservations.list') }}" class="btn btn-secondary">Mes Réservations</a>
-                </div>
-            </div>
-            <div class="row g-3">
-                @foreach($restaurants as $restaurant)
-                    <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
-                        <div class="position-relative d-block overflow-hidden" style="height: 300px;">
-                            @if($restaurant->restaurant_image)
-                                <img class="img-fluid w-100 h-100" src="{{ asset('storage/' . $restaurant->restaurant_image) }}" alt="{{ $restaurant->name }}" style="object-fit: cover;">
+    <!-- Mes Réservations List Start -->
+   <div class="container py-5">
+    <h2 class="text-center mb-4">Mes Réservations</h2>
+    @if($reservations->isEmpty())
+        <p class="text-center">Aucune réservation trouvée.</p>
+    @else
+        <div class="row">
+            @foreach($reservations as $reservation)
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                        @if($reservation->restaurant->restaurant_image)
+                                <img class="card-img-top" src="{{ asset('storage/' . $reservation->restaurant->restaurant_image) }}" alt="{{ $reservation->restaurant->name }}" style="object-fit: cover; height: 200px;">
                             @else
-                                <img class="img-fluid w-100 h-100" src="{{ asset('images/img/default-restaurant.jpg') }}" alt="{{ $restaurant->name }}" style="object-fit: cover;">
+                                <img class="card-img-top" src="{{ asset('images/img/default-restaurant.jpg') }}" alt="{{ $reservation->restaurant->name }}" style="object-fit: cover; height: 200px;">
                             @endif
-                            <div class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2">{{ $restaurant->name }}</div>
+                            <h5 class="card-title">{{ $reservation->restaurant->name }}</h5>
+                            <p class="card-text"><strong>Date :</strong> {{ \Carbon\Carbon::parse($reservation->reservation_date)->locale('fr')->isoFormat('LL') }}</p>
+                            <p class="card-text"><strong>Heure :</strong> {{ $reservation->reservation_time }}</p>
+                            <p class="card-text"><strong>Personnes :</strong> {{ $reservation->number_of_people }}</p>
                         </div>
-                        <div class="text-center mt-3">
-                            <!-- Button to show restaurant details -->
-                            <a href="{{ route('restaurants.details', $restaurant->id) }}" class="btn btn-warning">Voir les Informations</a>
-                            <a href="{{ route('restaurants.showReservationForm', $restaurant->id) }}" class="btn btn-primary">Faire une Réservation</a>
+                        <div class="card-footer text-center">
+                            <a href="{{ route('restaurants.details', ['id' => $reservation->restaurant->id]) }}" class="btn btn-primary">Voir le Restaurant</a>
+                            <form action="{{ route('reservations.cancel', $reservation->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-secondary">Annuler Réservation</button>
+                            </form>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
-    </div>
-    <!-- Restaurants Fin -->
+    @endif
+</div>
+
+    <!-- Mes Réservations List End -->
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

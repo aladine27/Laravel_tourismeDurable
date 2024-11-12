@@ -87,6 +87,7 @@ Route::resource('tours', TourController::class);
 // Restaurant routes
 Route::get('restaurants/list', [RestaurantController::class, 'getRestaurantList'])->name('restaurants.list');
 Route::get('restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
+Route::get('/restaurants/{id}', [RestaurantController::class, 'restaurantDetails'])->name('restaurants.details');
 
 // Resource routes for restaurants and menus with specific methods only
 Route::resource('restaurants', RestaurantController::class)->except(['index']);
@@ -96,6 +97,10 @@ Route::resource('menus', MenuController::class);
 Route::middleware(['auth'])->group(function () {
     Route::get('restaurants/{restaurant}/reserve', [RestaurantController::class, 'showReservationForm'])->name('restaurants.showReservationForm');
     Route::post('restaurants/{restaurant}/reserve', [RestaurantController::class, 'storeReservation'])->name('restaurants.storeReservation');
+    Route::get('my-reservations', [RestaurantController::class, 'myReservations'])->name('reservations.list');
+    Route::delete('/reservations/{id}/cancel', [RestaurantController::class, 'cancelReservation'])->name('reservations.cancel');
+
+
 });
 
 

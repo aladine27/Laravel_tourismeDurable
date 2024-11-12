@@ -157,10 +157,35 @@ class RestaurantController extends Controller
             'number_of_people' => $request->number_of_people,
         ]);
 
-        return redirect()->route('front')->with('success', 'Reservation made successfully.');
+        return redirect()->route('reservations.list')->with('success', 'Reservation made successfully.');
     }
 
 
-    
+    public function myReservations()
+{
+    $reservations = RestaurantReservation::where('user_id', Auth::id())->with('restaurant')->get();
+    return view('template.restaurant_reservations.my_reservations', compact('reservations'));
+}
+
+public function restaurantDetails($id)
+{
+    // Fetch the restaurant by its ID along with menus
+    $restaurant = Restaurant::with('menus')->findOrFail($id);
+
+    // Return the view and pass the restaurant data
+    return view('template.restaurent.details', compact('restaurant'));
+}
+public function cancelReservation($id)
+{
+    // Find the reservation by ID
+    $reservation = RestaurantReservation::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+
+    // Delete the reservation
+    $reservation->delete();
+
+    // Redirect back to the reservation list with a success message
+    return redirect()->route('reservations.list')->with('success', 'Réservation annulée avec succès.');
+}
+
     
 }
