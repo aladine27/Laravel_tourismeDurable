@@ -83,8 +83,25 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('destinations', DestinationController::class);
 Route::resource('guides', GuideController::class);
 Route::resource('tours', TourController::class);
-Route::resource('restaurants', RestaurantController::class);
+
+// Restaurant routes
+Route::get('restaurants/list', [RestaurantController::class, 'getRestaurantList'])->name('restaurants.list');
+Route::get('restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
+
+// Resource routes for restaurants and menus with specific methods only
+Route::resource('restaurants', RestaurantController::class)->except(['index']);
 Route::resource('menus', MenuController::class);
+
+// Reservation routes with authentication middleware
+Route::middleware(['auth'])->group(function () {
+    Route::get('restaurants/{restaurant}/reserve', [RestaurantController::class, 'showReservationForm'])->name('restaurants.showReservationForm');
+    Route::post('restaurants/{restaurant}/reserve', [RestaurantController::class, 'storeReservation'])->name('restaurants.storeReservation');
+});
+
+
+
+
+
 Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
 Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
 Route::resource('guidetours', GuideTourController::class);

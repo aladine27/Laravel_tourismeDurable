@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\RestaurantReservation;
+
+
+use Illuminate\Support\Facades\Auth;
 
 class RestaurantController extends Controller
 {
@@ -13,6 +17,13 @@ class RestaurantController extends Controller
     {
         $restaurants = Restaurant::all();
         return view('restaurants.index', compact('restaurants'));
+    }
+
+    // Display the restaurant list in the specified Blade view
+    public function getRestaurantList()
+    {
+        $restaurants = Restaurant::all();
+        return view('template.restaurent.list', compact('restaurants'));
     }
 
     // Show the form for creating a new restaurant
@@ -122,4 +133,34 @@ class RestaurantController extends Controller
             return redirect()->route('menus.create', ['restaurant' => $restaurant->id]);
         }
     }
+  
+    // Show the form for making a reservation at a restaurant
+    public function showReservationForm(Restaurant $restaurant)
+    {
+        return view('template.restaurant_reservations.create', compact('restaurant'));
+    }
+
+    // Store a new reservation in the database
+    public function storeReservation(Request $request, Restaurant $restaurant)
+    {
+        $request->validate([
+            'reservation_date' => 'required|date',
+            'reservation_time' => 'required|date_format:H:i',
+            'number_of_people' => 'required|integer|min:1',
+        ]);
+
+        RestaurantReservation::create([
+            'user_id' => Auth::id(),
+            'restaurant_id' => $restaurant->id,
+            'reservation_date' => $request->reservation_date,
+            'reservation_time' => $request->reservation_time,
+            'number_of_people' => $request->number_of_people,
+        ]);
+
+        return redirect()->route('front')->with('success', 'Reservation made successfully.');
+    }
+
+
+    
+    
 }
