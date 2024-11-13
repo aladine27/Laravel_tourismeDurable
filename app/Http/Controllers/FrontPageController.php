@@ -20,10 +20,9 @@ class FrontPageController extends Controller
         $restaurants = Restaurant::all();
         
         // Pass the trips and restaurants data to the front_office view
-        return view('template.front_office', compact('trips', 'restaurants'));
+        return view('template.front_office', compact('trips', 'restaurants','guides'));
     }
 
-        // Pass the trips data to the front_office view
     
     public function frontIndex()
 {
