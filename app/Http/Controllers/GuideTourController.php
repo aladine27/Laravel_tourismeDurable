@@ -70,4 +70,15 @@ class GuideTourController extends Controller
         $tour->guides()->detach();
         return redirect()->route('guidetours.index')->with('success', 'Les guides ont été supprimés de la visite.');
     }
+// Controller method for displaying tours to clients
+// GuideTourController
+public function clientIndex()
+{
+    // Use paginate() to enable pagination
+    $tours = Tour::with('guides')->paginate(6); // Display 6 tours per page
+    return view('guidetour.indexclient', compact('tours'));
+}
+
+
+
 }

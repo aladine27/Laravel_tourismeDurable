@@ -33,12 +33,15 @@ Route::get('/front', [FrontPageController::class, 'showFrontOffice'])->name('fro
 Route::get('/front/trips', [TripController::class, 'showTripsList'])->name('trips.list');
 Route::get('/front/events', [EventController::class, 'showEventList'])->name('events.list');
 
+Route::get('/guides/{guideId}/tours', [FrontPageController::class, 'showToursByGuide'])->name('guide_tours');
 /////////////// Routes pour l'admin//////////////////////////////////////////////////////////
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
     Route::get('/admin/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
+
+    Route::get('/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
     // autres routes réservées aux administrateurs
     // Resource Routes
 

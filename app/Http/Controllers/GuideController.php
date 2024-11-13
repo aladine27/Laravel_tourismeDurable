@@ -48,6 +48,12 @@ class GuideController extends Controller
         return view('guide.show', compact('guide'));
     }
 
+
+
+    
+
+
+
     // Afficher le formulaire d'édition d'un guide
     public function edit(Guide $guide)
     {
@@ -79,10 +85,18 @@ class GuideController extends Controller
         return redirect()->route('guides.index')->with('success', 'Guide mis à jour avec succès.');
     }
 
+
     // Supprimer un guide de la base de données
     public function destroy(Guide $guide)
     {
         $guide->delete();
         return redirect()->route('guides.index')->with('success', 'Guide supprimé avec succès.');
     }
+
+    
+
+
+
+
+
 }
