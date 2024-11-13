@@ -17,6 +17,11 @@ class RestaurantReservation extends Model
         'number_of_people',
     ];
 
+    // Automatically cast reservation_date to Carbon instance
+    protected $dates = [
+        'reservation_date', // Add the reservation_date field here
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -196,3 +196,18 @@ Route::group(['prefix' => 'icons'], function () {
 // Extra Page Routes
 Route::get('privacy-policy', [HomeController::class, 'privacypolicy'])->name('pages.privacy-policy');
 Route::get('terms-of-use', [HomeController::class, 'termsofuse'])->name('pages.term-of-use');
+
+
+Route::get('/send-test-email', function () {
+    $details = [
+        'subject' => 'Test Email',
+        'message' => 'This is a test email from Laravel.'
+    ];
+
+    Mail::raw($details['message'], function ($message) use ($details) {
+        $message->to('zoghlamisirin@gmail.com')
+                ->subject($details['subject']);
+    });
+
+    return 'Test email sent!';
+});
