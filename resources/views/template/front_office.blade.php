@@ -79,7 +79,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
                     <a href="{{ route('front') }}" class="nav-item nav-link active">Home</a>
-                    <a href="" class="nav-item nav-link">Destinations</a>
+                    <a href="{{ url('/front/destinations') }}" class="nav-item nav-link">Destinations</a>
                     <a href="{{ url('/front/events') }}" class="nav-item nav-link">Events</a>
 
                     <a href="" class="nav-item nav-link">Restaurents</a>

@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\Destination;
 // Controllers
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\MenuController;
@@ -23,8 +23,9 @@ use App\Http\Controllers\GuideTourController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\FrontPageController;
+use App\Http\Controllers\AttractionController;
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Public Routes
 Route::get('/home', [HomePageController::class, 'home'])->name('home');
@@ -32,7 +33,7 @@ Route::get('/home', [HomePageController::class, 'home'])->name('home');
 Route::get('/front', [FrontPageController::class, 'showFrontOffice'])->name('front');
 Route::get('/front/trips', [TripController::class, 'showTripsList'])->name('trips.list');
 Route::get('/front/events', [EventController::class, 'showEventList'])->name('events.list');
-
+Route::get('/front/destinations', [DestinationController::class, 'showDestinationList'])->name('destinations.list');
 /////////////// Routes pour l'admin//////////////////////////////////////////////////////////
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
@@ -42,17 +43,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // autres routes réservées aux administrateurs
     // Resource Routes
 
-// Routes for managing guide assignments to a tour
+    // Routes for managing guide assignments to a tour
 
 
-// Byserine routes
-// Route::resource('gestionVoyageur', TravelerController::class);
-Route::resource('gestionVoyage', TripController::class);
-Route::resource('gestionVoyageur', TravelerController::class);
+    // Byserine routes
+    // Route::resource('gestionVoyageur', TravelerController::class);
+    Route::resource('gestionVoyage', TripController::class);
+    Route::resource('gestionVoyageur', TravelerController::class);
 
-// Route::get('/gestionVoyageur/{id}/edit', [TravelerController::class, 'edit'])->name('gestionVoyageur.edit');
-// Route::put('/gestionVoyageur/{id}', [TravelerController::class, 'update'])->name('gestionVoyageur.update');
-// Route::delete('/gestionVoyageur/{id}', [TravelerController::class, 'destroy'])->name('gestionVoyageur.destroy');
+    // Route::get('/gestionVoyageur/{id}/edit', [TravelerController::class, 'edit'])->name('gestionVoyageur.edit');
+    // Route::put('/gestionVoyageur/{id}', [TravelerController::class, 'update'])->name('gestionVoyageur.update');
+    // Route::delete('/gestionVoyageur/{id}', [TravelerController::class, 'destroy'])->name('gestionVoyageur.destroy');
 
 });
 
@@ -81,13 +82,28 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('events', EventController::class);
     Route::resource('tickets', TicketController::class);
     Route::resource('destinations', DestinationController::class);
-Route::resource('guides', GuideController::class);
-Route::resource('tours', TourController::class);
-Route::resource('restaurants', RestaurantController::class);
-Route::resource('menus', MenuController::class);
-Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
-Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
-Route::resource('guidetours', GuideTourController::class);
+    Route::resource('attractions', AttractionController::class);
+    Route::get('/destinations/{destination}/attractions', [DestinationController::class, 'getAttractions']);
+    // web.php
+    // Route::get('/search', function () {
+    //     $type = request('type');
+    //     $destinations = Destination::whereHas('attractions', function($query) use ($type) {
+    //         $query->where('type', $type);
+    //     })->get();
+    
+    //     return view('search.results', compact('destinations'));
+    // });
+    Route::get('/search', [DestinationController::class, 'search'])->name('destination.search');
+
+
+
+    Route::resource('guides', GuideController::class);
+    Route::resource('tours', TourController::class);
+    Route::resource('restaurants', RestaurantController::class);
+    Route::resource('menus', MenuController::class);
+    Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
+    Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
+    Route::resource('guidetours', GuideTourController::class);
 
     // Permission Module
     Route::get('/role-permission', [RolePermission::class, 'index'])->name('role.permission.list');
