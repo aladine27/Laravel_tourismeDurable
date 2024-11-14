@@ -31,7 +31,7 @@ Route::get('/home', [HomePageController::class, 'home'])->name('home');
 // Route::get('/', [FrontPageController::class, 'showFrontOffice'])->name('front');
 Route::get('/front', [FrontPageController::class, 'showFrontOffice'])->name('front');
 Route::get('/front/trips', [TripController::class, 'showTripsList'])->name('trips.list');
-
+Route::get('/front-guide', [FrontPageController::class, 'frontIndex'])->name('template.frontguide');
 Route::get('/guides/{guideId}/tours', [FrontPageController::class, 'showToursByGuide'])->name('guide_tours');
 /////////////// Routes pour l'admin//////////////////////////////////////////////////////////
 Route::middleware(['auth', 'role:admin'])->group(function () {
