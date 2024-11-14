@@ -24,6 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('reservations:send-reminders')->everyMinute();
+
         $schedule->command('refresh:database')->twiceDaily(1, 13)->withoutOverlapping();
     }
 
