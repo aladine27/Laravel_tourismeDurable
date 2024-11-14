@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="{{ asset('images/img/favicon.ico') }}" rel="icon">
+    <link href="<?php echo e(asset('images/img/favicon.ico')); ?>" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,15 +21,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="{{ asset('css/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/animate.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/owl.carousel.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/tempusdominus-bootstrap-4.min.css')); ?>" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/style.css')); ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -70,13 +70,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="{{ route('front') }}" class="nav-item nav-link active">Home</a>
-                    <a href="{{ url('/front/destinations') }}" class="nav-item nav-link">Destinations</a>
-                    <a href="{{ url('/front/events') }}" class="nav-item nav-link">Events</a>
-                    <a href="{{ route('restaurants.list') }}" class="nav-item nav-link">Restaurants</a>
-                     <a href="{{ route('trips.list') }}" class="nav-item nav-link">Trips</a>
+                    <a href="<?php echo e(route('front')); ?>" class="nav-item nav-link active">Home</a>
+                    <a href="<?php echo e(url('/front/destinations')); ?>" class="nav-item nav-link">Destinations</a>
+                    <a href="<?php echo e(url('/front/events')); ?>" class="nav-item nav-link">Events</a>
+                    <a href="<?php echo e(route('restaurants.list')); ?>" class="nav-item nav-link">Restaurants</a>
+                     <a href="<?php echo e(route('trips.list')); ?>" class="nav-item nav-link">Trips</a>
                     <a href="" class="nav-item nav-link">Hosting</a>
-                    <a href="{{route ('template.frontguide')}}" class="nav-item nav-link">Guids</a>
+                    <a href="<?php echo e(route ('template.frontguide')); ?>" class="nav-item nav-link">Guids</a>
                 </div>
                 <!-- <a href="" class="btn btn-primary rounded-pill py-2 px-4">Hosting</a> -->
             </div>
@@ -121,20 +121,20 @@
                 <h1 class="mb-5">Meet Our Amazing Guides</h1>
             </div>
             <div class="row g-4 justify-content-center">
-                @foreach($guides as $guide)
+                <?php $__currentLoopData = $guides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $guide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="package-item">
                             <div class="text-center p-4">
-                                <img src="{{ asset('images/guides/' . $guide->image) }}" alt="{{ $guide->name }}" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
-                                <h3>{{ $guide->name }}</h3>
-                                <p><strong>Experience:</strong> {{ $guide->experience_years }} years</p>
-                                <p><strong>Email:</strong> {{ $guide->email }}</p>
-                                <p><strong>Phone:</strong> {{ $guide->phone }}</p>
+                                <img src="<?php echo e(asset('images/guides/' . $guide->image)); ?>" alt="<?php echo e($guide->name); ?>" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+                                <h3><?php echo e($guide->name); ?></h3>
+                                <p><strong>Experience:</strong> <?php echo e($guide->experience_years); ?> years</p>
+                                <p><strong>Email:</strong> <?php echo e($guide->email); ?></p>
+                                <p><strong>Phone:</strong> <?php echo e($guide->phone); ?></p>
                                 
                             </div>
                         </div>
                     </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </div>
@@ -144,16 +144,17 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/wow.min.js') }}"></script>
-    <script src="{{ asset('js/easing.min.js') }}"></script>
-    <script src="{{ asset('js/waypoints.min.js') }}"></script>
-    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('js/moment.min.js') }}"></script>
-    <script src="{{ asset('js/moment-timezone.min.js') }}"></script>
-    <script src="{{ asset('js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="<?php echo e(asset('js/wow.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/easing.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/waypoints.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/moment.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/moment-timezone.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/tempusdominus-bootstrap-4.min.js')); ?>"></script>
 
     <!-- Template Javascript -->
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="<?php echo e(asset('js/main.js')); ?>"></script>
 </body>
 
 </html>
+<?php /**PATH C:\Users\MSI\Desktop\5eme\Laravel\projet\Laravel_RescuFood\resources\views/template/frontguide.blade.php ENDPATH**/ ?>
