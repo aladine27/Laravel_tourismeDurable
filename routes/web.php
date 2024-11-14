@@ -104,6 +104,35 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
     Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
     Route::resource('guidetours', GuideTourController::class);
+Route::resource('guides', GuideController::class);
+Route::resource('tours', TourController::class);
+
+// Restaurant routes
+Route::get('restaurants/list', [RestaurantController::class, 'getRestaurantList'])->name('restaurants.list');
+Route::get('restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
+Route::get('/restaurants/{id}', [RestaurantController::class, 'restaurantDetails'])->name('restaurants.details');
+
+// Resource routes for restaurants and menus with specific methods only
+Route::resource('restaurants', RestaurantController::class)->except(['index']);
+Route::resource('menus', MenuController::class);
+
+// Reservation routes with authentication middleware
+Route::middleware(['auth'])->group(function () {
+    Route::get('restaurants/{restaurant}/reserve', [RestaurantController::class, 'showReservationForm'])->name('restaurants.showReservationForm');
+    Route::post('restaurants/{restaurant}/reserve', [RestaurantController::class, 'storeReservation'])->name('restaurants.storeReservation');
+    Route::get('my-reservations', [RestaurantController::class, 'myReservations'])->name('reservations.list');
+    Route::delete('/reservations/{id}/cancel', [RestaurantController::class, 'cancelReservation'])->name('reservations.cancel');
+
+
+});
+
+
+
+
+
+Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
+Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
+Route::resource('guidetours', GuideTourController::class);
 
     // Permission Module
     Route::get('/role-permission', [RolePermission::class, 'index'])->name('role.permission.list');
@@ -190,3 +219,19 @@ Route::group(['prefix' => 'icons'], function () {
 // Extra Page Routes
 Route::get('privacy-policy', [HomeController::class, 'privacypolicy'])->name('pages.privacy-policy');
 Route::get('terms-of-use', [HomeController::class, 'termsofuse'])->name('pages.term-of-use');
+
+
+
+Route::get('/send-test-email', function () {
+    $details = [
+        'subject' => 'Test Email',
+        'message' => 'This is a test email from Laravel.'
+    ];
+
+    Mail::raw($details['message'], function ($message) use ($details) {
+        $message->to('zoghlamisirin@gmail.com')
+                ->subject($details['subject']);
+    });
+
+    return 'Test email sent!';
+});
