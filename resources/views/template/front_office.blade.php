@@ -84,7 +84,7 @@
                     <a href="{{ route('restaurants.list') }}" class="nav-item nav-link">Restaurants</a>
                      <a href="{{ route('trips.list') }}" class="nav-item nav-link">Trips</a>
                     <a href="" class="nav-item nav-link">Hosting</a>
-                    <a href="{{ route('template.frontguide') }}" class="nav-item nav-link">Guids</a>
+                    <a href="{{route ('template.frontguide')}}" class="nav-item nav-link">Guids</a>
                 </div>
                 <!-- <a href="" class="btn btn-primary rounded-pill py-2 px-4">Hosting</a> -->
             </div>

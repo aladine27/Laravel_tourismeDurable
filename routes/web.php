@@ -35,6 +35,7 @@ Route::get('/front/trips', [TripController::class, 'showTripsList'])->name('trip
 Route::get('/front/events', [EventController::class, 'showEventList'])->name('events.list');
 Route::get('/front/front-guide', [FrontPageController::class, 'frontIndex'])->name('template.frontguide');
 
+Route::get('/front-guide', [FrontPageController::class, 'frontIndex'])->name('template.frontguide');
 Route::get('/guides/{guideId}/tours', [FrontPageController::class, 'showToursByGuide'])->name('guide_tours');
 Route::get('/front/destinations', [DestinationController::class, 'showDestinationList'])->name('destinations.list');
 /////////////// Routes pour l'admin//////////////////////////////////////////////////////////
