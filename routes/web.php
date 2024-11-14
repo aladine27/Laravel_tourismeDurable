@@ -32,6 +32,7 @@ Route::get('/home', [HomePageController::class, 'home'])->name('home');
 Route::get('/front', [FrontPageController::class, 'showFrontOffice'])->name('front');
 Route::get('/front/trips', [TripController::class, 'showTripsList'])->name('trips.list');
 Route::get('/front/events', [EventController::class, 'showEventList'])->name('events.list');
+Route::get('/front/front-guide', [FrontPageController::class, 'frontIndex'])->name('template.frontguide');
 
 Route::get('/guides/{guideId}/tours', [FrontPageController::class, 'showToursByGuide'])->name('guide_tours');
 /////////////// Routes pour l'admin//////////////////////////////////////////////////////////
@@ -86,6 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('destinations', DestinationController::class);
 Route::resource('guides', GuideController::class);
 Route::resource('tours', TourController::class);
+
 
 // Restaurant routes
 Route::get('restaurants/list', [RestaurantController::class, 'getRestaurantList'])->name('restaurants.list');

@@ -18,6 +18,8 @@ class FrontPageController extends Controller
         
         // Fetch all restaurants
         $restaurants = Restaurant::all();
+        // fetch all guides 
+       
         
         // Pass the trips and restaurants data to the front_office view
         return view('template.front_office', compact('trips', 'restaurants','guides'));
@@ -27,8 +29,9 @@ class FrontPageController extends Controller
     public function frontIndex()
 {
     $guides = Guide::with('tours')->get(); // Fetch all guides with their associated tours
-    
-    return view('template.front_office', compact('guides')); // Pass the guides variable to the view
+     $restaurants = Restaurant::all(); 
+     $trips = Trip::all();
+    return view('template.frontguide', compact('guides','restaurants','trips')); // Pass the guides variable to the view
     
 }
  public function showToursByGuide($guideId)

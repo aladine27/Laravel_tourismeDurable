@@ -84,7 +84,7 @@
                     <a href="{{ route('restaurants.list') }}" class="nav-item nav-link">Restaurants</a>
                      <a href="{{ route('trips.list') }}" class="nav-item nav-link">Trips</a>
                     <a href="" class="nav-item nav-link">Hosting</a>
-                    <a href="{{ route('guides.index') }}" class="nav-item nav-link">Guids</a>
+                    <a href="{{ route('template.frontguide') }}" class="nav-item nav-link">Guids</a>
                 </div>
                 <!-- <a href="" class="btn btn-primary rounded-pill py-2 px-4">Hosting</a> -->
             </div>
@@ -578,33 +578,36 @@
             <h6 class="section-title bg-white text-center text-primary px-3">Travel Guide</h6>
             <h1 class="mb-5">Meet Our Guide</h1>
         </div>
-        <div class="row g-4">
-            @foreach ($guides as $guide)
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.{{ $loop->index * 2 }}s">
-                    <div class="team-item">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('storage/' . $guide->image) }}" alt="{{ $guide->name }}">
-                        </div>
-                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px;">
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                        <div class="text-center p-4">
-                            <h5 class="mb-0">{{ $guide->name }}</h5>
-                            <small>{{ $guide->experience_years }} years of experience</small>
-                        </div>
-                         <div class="text-center mt-3">
-                          <a href="{{ route('guide_tours', ['guideId' => $guide->id]) }}">Voir les tours</a>
-
-
-                        </div>
-                    </div>
+     <div class="row g-4">
+    @foreach ($guides as $guide)
+        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.{{ $loop->index * 2 }}s">
+            <div class="team-item">
+                <div class="overflow-hidden">
+                    <!-- Affichage de l'image, si elle existe, sinon image par défaut -->
+                    <img class="img-fluid" 
+                         src="{{ asset('storage/' . ($guide->image && file_exists(public_path('storage/' . $guide->image)) ? $guide->image : 'default-image.jpg')) }}" 
+                         alt="{{ $guide->name }}" 
+                         style="width: 100%; height: auto; max-height: 250px;">
                 </div>
-            @endforeach
+                <div class="position-relative d-flex justify-content-center" style="margin-top: -19px;">
+                    <a class="btn btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-square mx-1" href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="text-center p-4">
+                    <h5 class="mb-0">{{ $guide->name }}</h5>
+                    <small>{{ $guide->experience_years }} years of experience</small>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{{ route('guide_tours', ['guideId' => $guide->id]) }}">Voir les tours</a>
+                </div>
+            </div>
         </div>
-    </div>
+    @endforeach
 </div>
+
+
+
 
     <!-- Guide End -->
 
