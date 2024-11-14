@@ -100,4 +100,55 @@ public function update(Request $request, Destination $destination)
         return view('destinations.show', compact('Destination')); // Pass the Destination to the view
     }
 
+    public function getAttractions($destinationId)
+    {
+        $destination = Destination::find($destinationId);
+    
+        if (!$destination) {
+            return response()->json(['error' => 'Destination not found'], 404);
+        }
+    
+        $attractions = $destination->attractions; // Assurez-vous que la relation attractions existe
+    
+        return response()->json([
+            'attractions' => $attractions
+        ]);
+    }
+    
+    public function showDestinationList()
+    {
+        // Récupérer toutes les destinations avec leurs attractions associées
+        $destinations = Destination::with('attractions')->get();
+    
+        // Passer les destinations à la vue
+        return view('template.destinations_list', compact('destinations'));
+    }
+    
+    // SearchController.php
+    public function search(Request $request)
+{
+    // Vérifiez si le type d'attraction a été envoyé
+    $type = $request->input('type');
+
+    // Si un type est spécifié, filtrez les destinations par type d'attraction
+    if ($type && $type !== 'All') {
+        $destinations = Destination::whereHas('attractions', function($query) use ($type) {
+            $query->where('type', $type);
+        })->with('attractions')->get(); // Inclure les attractions dans les résultats
+    } else {
+        // Sinon, récupérez toutes les destinations avec leurs attractions
+        $destinations = Destination::with('attractions')->get();
+    }
+
+    return response()->json(['destinations' => $destinations]);
+}
+
+
+    
+
+    
+    
+    
+
+
 }
