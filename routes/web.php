@@ -49,7 +49,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Byserine routes
     // Route::resource('gestionVoyageur', TravelerController::class);
     Route::resource('gestionVoyage', TripController::class);
-    Route::resource('gestionVoyageur', TravelerController::class);
+    Route::resource('gestionVoyageur', TravelerController::class ) ;
 
     // Route::get('/gestionVoyageur/{id}/edit', [TravelerController::class, 'edit'])->name('gestionVoyageur.edit');
     // Route::put('/gestionVoyageur/{id}', [TravelerController::class, 'update'])->name('gestionVoyageur.update');
