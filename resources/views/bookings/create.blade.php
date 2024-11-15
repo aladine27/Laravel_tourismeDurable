@@ -1,15 +1,15 @@
 <x-app-layout :assets="$assets ?? []">
     <div class="booking-content">
-        <h1>Create Booking</h1>
+        <h1>Créer Réservation</h1>
 
         <form action="{{ route('bookings.store') }}" method="POST">
             @csrf
 
             <!-- Accommodation Selection -->
             <div class="mb-3">
-                <label for="accommodation_id" class="form-label">Accommodation</label>
+                <label for="accommodation_id" class="form-label">Hébergement</label>
                 <select name="accommodation_id" id="accommodation_id" class="form-control" required>
-                    <option value="" disabled selected>Select an Accommodation</option>
+                    <option value="" disabled selected>Selectionner un hébergement</option>
                     @foreach($accommodations as $accommodation)
                         <option value="{{ $accommodation->id }}">{{ $accommodation->name }}</option>
                     @endforeach
@@ -28,15 +28,11 @@
                 <input type="date" name="check_out_date" id="check_out" class="form-control" required>
             </div>
 
-            <!-- Total Price -->
-            <div class="mb-3">
-                <label for="total_price" class="form-label">Total Price</label>
-                <input type="number" name="total_price" id="total_price" class="form-control" required>
-            </div>
+
 
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Create Booking</button>
-                <a href="{{ route('bookings.index') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Créer réservation</button>
+                <a href="{{ route('bookings.index') }}" class="btn btn-secondary">Annuler</a>
             </div>
         </form>
     </div>

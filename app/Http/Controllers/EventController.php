@@ -13,6 +13,7 @@ class EventController extends Controller
         return view('events.index', compact('events'));
     }
 
+
     public function create()
     {
         return view('events.create');
@@ -50,12 +51,21 @@ class EventController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'location' => 'required|string', // Validez que la location est une chaîne JSON
         ]);
-
-        $event->update($request->all());
-
+    
+        // Décodez la location de JSON en tableau
+        $location = json_decode($request->location, true);
+    
+        $event->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'location' => $location, // Assurez-vous que la colonne location dans la DB peut stocker un tableau
+        ]);
+    
         return redirect()->route('events.index')->with('success', 'Event updated successfully.');
     }
+    
 
     public function destroy(Event $event)
     {
@@ -69,4 +79,15 @@ class EventController extends Controller
         return view('events.show', compact('event')); // Pass the event to the view
     }
 
+    public function showEventList()
+    {
+        // Récupérer tous les événements avec leurs tickets associés
+        $events = Event::with('tickets')->get();
+    
+        // Passer les événements à la vue
+        return view('template.events_list', compact('events'));
+    }
+    
+    
+    
 }

@@ -1,6 +1,6 @@
 <x-app-layout :assets="$assets ?? []">
     <div class="accommodation-detail-content container mt-5">
-        <h1 class="mb-4 text-center">Accommodation Details</h1>
+        <h1 class="mb-4 text-center">Details Hébergement</h1>
 
         <div class="card shadow-sm">
             <div class="card-body">
@@ -12,7 +12,7 @@
                         <div class="attribute-box">
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
-                                <h5>Address</h5>
+                                <h5>Adresse</h5>
                                 <p>{{ $accommodation->address }}</p>
                             </div>
                         </div>
@@ -22,15 +22,15 @@
                         <div class="attribute-box">
                             <i class="fas fa-dollar-sign"></i>
                             <div>
-                                <h5>Price per Night</h5>
-                                <p>${{ $accommodation->price_per_night }}</p>
+                                <h5>Prix par nuit</h5>
+                                <p>{{ $accommodation->price_per_night }} DT</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="text-center mt-4">
-                    <a href="{{ route('accommodations.index') }}" class="btn btn-secondary">Back to Accommodations</a>
+                    <a href="{{ route('accommodations.index') }}" class="btn btn-secondary">Retour</a>
                 </div>
             </div>
         </div>
