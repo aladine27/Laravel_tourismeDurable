@@ -52,7 +52,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
+    //Route::get('/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
     // autres routes réservées aux administrateurs
     // Resource Routes
 
