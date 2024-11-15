@@ -1,7 +1,7 @@
-@extends('template.template-front')
 
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
     <!-- Hero Section Start -->
     <div class="container-fluid bg-primary py-5 mb-5 hero-header">
         <div class="container py-5">
@@ -23,28 +23,30 @@
                 <h1 class="mb-5">Meet Our Amazing Guides</h1>
             </div>
             <div class="row g-4 justify-content-center">
-                @foreach($guides as $guide)
+                <?php $__currentLoopData = $guides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $guide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="package-item">
                             <div class="text-center p-4">
-                                <img src="{{ asset('images/guides/' . $guide->image) }}" alt="{{ $guide->name }}" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
-                                <h3>{{ $guide->name }}</h3>
-                                <p><strong>Experience:</strong> {{ $guide->experience_years }} years</p>
-                                <p><strong>Email:</strong> {{ $guide->email }}</p>
-                                <p><strong>Phone:</strong> {{ $guide->phone }}</p>
+                                <img src="<?php echo e(asset('images/guides/' . $guide->image)); ?>" alt="<?php echo e($guide->name); ?>" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+                                <h3><?php echo e($guide->name); ?></h3>
+                                <p><strong>Experience:</strong> <?php echo e($guide->experience_years); ?> years</p>
+                                <p><strong>Email:</strong> <?php echo e($guide->email); ?></p>
+                                <p><strong>Phone:</strong> <?php echo e($guide->phone); ?></p>
                                 <div class="text-center mt-3">
-                                    <a href="{{ route('guide_tours', ['guideId' => $guide->id]) }}">Voir les tours</a>
+                                    <a href="<?php echo e(route('guide_tours', ['guideId' => $guide->id])); ?>">Voir les tours</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </div>
     <!-- Guides Section End -->
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 
 
+
+<?php echo $__env->make('template.template-front', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Xampp\htdocs\Laravel_tourismeDurable\resources\views/template/frontguide.blade.php ENDPATH**/ ?>

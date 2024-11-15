@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="{{ asset('images/img/favicon.ico') }}" rel="icon">
+    <link href="<?php echo e(asset('images/img/favicon.ico')); ?>" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,15 +21,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="{{ asset('css/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/animate.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/owl.carousel.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/tempusdominus-bootstrap-4.min.css')); ?>" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/style.css')); ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -68,7 +68,7 @@
 
     <!-- Navbar & Hero Start -->
     <div class="container-fluid position-relative p-0">
-        @include('template.navbar')
+        <?php echo $__env->make('template.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
         <div class="container-fluid bg-primary py-5 mb-5 hero-header">
             <div class="container py-5">
@@ -94,7 +94,7 @@
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
                     <div class="position-relative h-100">
-                        <img class="img-fluid position-absolute w-100 h-100" src="{{ asset('images/img/about.jpg') }}" alt="" style="object-fit: cover;">
+                        <img class="img-fluid position-absolute w-100 h-100" src="<?php echo e(asset('images/img/about.jpg')); ?>" alt="" style="object-fit: cover;">
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
@@ -140,21 +140,21 @@
                     <div class="row g-3">
                         <div class="col-lg-12 col-md-12 wow zoomIn" data-wow-delay="0.1s">
                             <a class="position-relative d-block overflow-hidden" href="">
-                                <img class="img-fluid" src="{{ asset('images/img/destination-1.jpg') }}" alt="">
+                                <img class="img-fluid" src="<?php echo e(asset('images/img/destination-1.jpg')); ?>" alt="">
                                 <div class="bg-white text-danger fw-bold position-absolute top-0 start-0 m-3 py-1 px-2">30% OFF</div>
                                 <div class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2">Thailand</div>
                             </a>
                         </div>
                         <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.3s">
                             <a class="position-relative d-block overflow-hidden" href="">
-                                <img class="img-fluid" src="{{ asset('images/img/destination-2.jpg') }}" alt="">
+                                <img class="img-fluid" src="<?php echo e(asset('images/img/destination-2.jpg')); ?>" alt="">
                                 <div class="bg-white text-danger fw-bold position-absolute top-0 start-0 m-3 py-1 px-2">25% OFF</div>
                                 <div class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2">Malaysia</div>
                             </a>
                         </div>
                         <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.5s">
                             <a class="position-relative d-block overflow-hidden" href="">
-                                <img class="img-fluid" src="{{ asset('images/img/destination-3.jpg') }}" alt="">
+                                <img class="img-fluid" src="<?php echo e(asset('images/img/destination-3.jpg')); ?>" alt="">
                                 <div class="bg-white text-danger fw-bold position-absolute top-0 start-0 m-3 py-1 px-2">35% OFF</div>
                                 <div class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2">Australia</div>
                             </a>
@@ -163,7 +163,7 @@
                 </div>
                 <div class="col-lg-5 col-md-6 wow zoomIn" data-wow-delay="0.7s" style="min-height: 350px;">
                     <a class="position-relative d-block h-100 overflow-hidden" href="">
-                        <img class="img-fluid position-absolute w-100 h-100" src="{{ asset('images/img/destination-4.jpg') }}" alt="" style="object-fit: cover;">
+                        <img class="img-fluid position-absolute w-100 h-100" src="<?php echo e(asset('images/img/destination-4.jpg')); ?>" alt="" style="object-fit: cover;">
                         <div class="bg-white text-danger fw-bold position-absolute top-0 start-0 m-3 py-1 px-2">20% OFF</div>
                         <div class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2">Indonesia</div>
                     </a>
@@ -271,21 +271,21 @@
             <h1 class="mb-5">Restaurant Choices</h1>
         </div>
         <div class="row g-3">
-            @foreach($restaurants as $restaurant)
+            <?php $__currentLoopData = $restaurants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $restaurant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
                     <div class="position-relative d-block overflow-hidden" style="height: 300px;">
-                        @if($restaurant->restaurant_image)
-                            <img class="img-fluid w-100 h-100" src="{{ asset('storage/' . $restaurant->restaurant_image) }}" alt="{{ $restaurant->name }}" style="object-fit: cover;">
-                        @else
-                            <img class="img-fluid w-100 h-100" src="{{ asset('images/img/default-restaurant.jpg') }}" alt="{{ $restaurant->name }}" style="object-fit: cover;">
-                        @endif
-                        <div class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2">{{ $restaurant->name }}</div>
+                        <?php if($restaurant->restaurant_image): ?>
+                            <img class="img-fluid w-100 h-100" src="<?php echo e(asset('storage/' . $restaurant->restaurant_image)); ?>" alt="<?php echo e($restaurant->name); ?>" style="object-fit: cover;">
+                        <?php else: ?>
+                            <img class="img-fluid w-100 h-100" src="<?php echo e(asset('images/img/default-restaurant.jpg')); ?>" alt="<?php echo e($restaurant->name); ?>" style="object-fit: cover;">
+                        <?php endif; ?>
+                        <div class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2"><?php echo e($restaurant->name); ?></div>
                     </div>
                     <div class="text-center mt-3">
-                        <a href="{{ route('restaurants.showReservationForm', $restaurant->id) }}" class="btn btn-primary">Faire une Réservation</a>
+                        <a href="<?php echo e(route('restaurants.showReservationForm', $restaurant->id)); ?>" class="btn btn-primary">Faire une Réservation</a>
                     </div>
                 </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     </div>
 </div>
@@ -302,30 +302,32 @@
 
             <div class="row g-4 justify-content-center">
 
-            @foreach($trips as $trip)
+            <?php $__currentLoopData = $trips; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $trip): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="package-item">
                         <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('images/img/package-1.jpg') }}" alt="">
+                            <img class="img-fluid" src="<?php echo e(asset('images/img/package-1.jpg')); ?>" alt="">
                         </div>
                         <div class="d-flex border-bottom">
                             <!-- Destination -->
                             <small class="flex-fill text-center border-end py-2">
-                                <i class="fa fa-map-marker-alt text-primary me-2"></i>{{ $trip->destination }}
+                                <i class="fa fa-map-marker-alt text-primary me-2"></i><?php echo e($trip->destination); ?>
+
                             </small>
                             <!-- Number of Days (Calculated from start_date to end_date) -->
                             <small class="flex-fill text-center border-end py-2">
                                 <i class="fa fa-calendar-alt text-primary me-2"></i>
-                                {{ \Carbon\Carbon::parse($trip->start_date)->diffInDays($trip->end_date) }} days
+                                <?php echo e(\Carbon\Carbon::parse($trip->start_date)->diffInDays($trip->end_date)); ?> days
                             </small>
                             <!-- Number of Travelers -->
                             <small class="flex-fill text-center py-2">
-                                <i class="fa fa-user text-primary me-2"></i>{{ $trip->travelers_count }} Person{{ $trip->travelers_count > 1 ? 's' : '' }}
+                                <i class="fa fa-user text-primary me-2"></i><?php echo e($trip->travelers_count); ?> Person<?php echo e($trip->travelers_count > 1 ? 's' : ''); ?>
+
                             </small>
                         </div>
                         <div class="text-center p-4">
                             <!-- Cost -->
-                            <h3 class="mb-0">${{ number_format($trip->cost, 2) }}</h3>
+                            <h3 class="mb-0">$<?php echo e(number_format($trip->cost, 2)); ?></h3>
                             <div class="mb-3">
                                 <small class="fa fa-star text-primary"></small>
                                 <small class="fa fa-star text-primary"></small>
@@ -334,12 +336,12 @@
                                 <small class="fa fa-star text-primary"></small>
                             </div>
                             <div class="d-flex justify-content-center mb-2">
-                                <a href="{{ route('trips.list') }}" class="btn btn-sm btn-primary px-6 border-end" style="border-radius: 0px 0 0 0px;">Explore More</a>
+                                <a href="<?php echo e(route('trips.list')); ?>" class="btn btn-sm btn-primary px-6 border-end" style="border-radius: 0px 0 0 0px;">Explore More</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
             </div>
 
@@ -421,7 +423,7 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="package-item">
                         <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('images/img/package-1.jpg') }}" alt="">
+                            <img class="img-fluid" src="<?php echo e(asset('images/img/package-1.jpg')); ?>" alt="">
                         </div>
                         <div class="d-flex border-bottom">
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>Thailand</small>
@@ -448,7 +450,7 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="package-item">
                         <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('images/img/package-2.jpg') }}" alt="">
+                            <img class="img-fluid" src="<?php echo e(asset('images/img/package-2.jpg')); ?>" alt="">
                         </div>
                         <div class="d-flex border-bottom">
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>Indonesia</small>
@@ -475,7 +477,7 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="package-item">
                         <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ asset('images/img/package-3.jpg') }}" alt="">
+                            <img class="img-fluid" src="<?php echo e(asset('images/img/package-3.jpg')); ?>" alt="">
                         </div>
                         <div class="d-flex border-bottom">
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>Malaysia</small>
@@ -559,14 +561,14 @@
             <h1 class="mb-5">Meet Our Guide</h1>
         </div>
      <div class="row g-4">
-    @foreach ($guides as $guide)
-        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.{{ $loop->index * 2 }}s">
+    <?php $__currentLoopData = $guides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $guide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.<?php echo e($loop->index * 2); ?>s">
             <div class="team-item">
                 <div class="overflow-hidden">
                     <!-- Affichage de l'image, si elle existe, sinon image par défaut -->
                     <img class="img-fluid"
-                         src="{{ asset('storage/' . ($guide->image && file_exists(public_path('storage/' . $guide->image)) ? $guide->image : 'default-image.jpg')) }}"
-                         alt="{{ $guide->name }}"
+                         src="<?php echo e(asset('storage/' . ($guide->image && file_exists(public_path('storage/' . $guide->image)) ? $guide->image : 'default-image.jpg'))); ?>"
+                         alt="<?php echo e($guide->name); ?>"
                          style="width: 100%; height: auto; max-height: 250px;">
                 </div>
                 <div class="position-relative d-flex justify-content-center" style="margin-top: -19px;">
@@ -575,15 +577,15 @@
                     <a class="btn btn-square mx-1" href="#"><i class="fab fa-instagram"></i></a>
                 </div>
                 <div class="text-center p-4">
-                    <h5 class="mb-0">{{ $guide->name }}</h5>
-                    <small>{{ $guide->experience_years }} years of experience</small>
+                    <h5 class="mb-0"><?php echo e($guide->name); ?></h5>
+                    <small><?php echo e($guide->experience_years); ?> years of experience</small>
                 </div>
                 <div class="text-center mt-3">
-                    <a href="{{ route('guide_tours', ['guideId' => $guide->id]) }}">Voir les tours</a>
+                    <a href="<?php echo e(route('guide_tours', ['guideId' => $guide->id])); ?>">Voir les tours</a>
                 </div>
             </div>
         </div>
-    @endforeach
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </div>
 
 
@@ -601,25 +603,25 @@
             </div>
             <div class="owl-carousel testimonial-carousel position-relative">
                 <div class="testimonial-item bg-white text-center border p-4">
-                    <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{ asset('images/img/testimonial-1.jpg') }}" style="width: 80px; height: 80px;">
+                    <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="<?php echo e(asset('images/img/testimonial-1.jpg')); ?>" style="width: 80px; height: 80px;">
                     <h5 class="mb-0">John Doe</h5>
                     <p>New York, USA</p>
                     <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
                 </div>
                 <div class="testimonial-item bg-white text-center border p-4">
-                    <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{ asset('images/img/testimonial-2.jpg') }}" style="width: 80px; height: 80px;">
+                    <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="<?php echo e(asset('images/img/testimonial-2.jpg')); ?>" style="width: 80px; height: 80px;">
                     <h5 class="mb-0">John Doe</h5>
                     <p>New York, USA</p>
                     <p class="mt-2 mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
                 </div>
                 <div class="testimonial-item bg-white text-center border p-4">
-                    <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{ asset('images/img/testimonial-3.jpg') }}" style="width: 80px; height: 80px;">
+                    <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="<?php echo e(asset('images/img/testimonial-3.jpg')); ?>" style="width: 80px; height: 80px;">
                     <h5 class="mb-0">John Doe</h5>
                     <p>New York, USA</p>
                     <p class="mt-2 mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
                 </div>
                 <div class="testimonial-item bg-white text-center border p-4">
-                    <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{ asset('images/img/testimonial-4.jpg') }}" style="width: 80px; height: 80px;">
+                    <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="<?php echo e(asset('images/img/testimonial-4.jpg')); ?>" style="width: 80px; height: 80px;">
                     <h5 class="mb-0">John Doe</h5>
                     <p>New York, USA</p>
                     <p class="mt-2 mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
@@ -676,7 +678,7 @@
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <div class="footer-menu">
-                            <a href="{{ route('front') }}">Home</a>
+                            <a href="<?php echo e(route('front')); ?>">Home</a>
                             <a href="">Cookies</a>
                             <a href="">Help</a>
                             <a href="">FQAs</a>
@@ -696,16 +698,17 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/wow.min.js') }}"></script>
-    <script src="{{ asset('js/easing.min.js') }}"></script>
-    <script src="{{ asset('js/waypoints.min.js') }}"></script>
-    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('js/moment.min.js') }}"></script>
-    <script src="{{ asset('js/moment-timezone.min.js') }}"></script>
-    <script src="{{ asset('js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="<?php echo e(asset('js/wow.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/easing.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/waypoints.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/moment.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/moment-timezone.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/tempusdominus-bootstrap-4.min.js')); ?>"></script>
 
     <!-- Template Javascript -->
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="<?php echo e(asset('js/main.js')); ?>"></script>
 </body>
 
 </html>
+<?php /**PATH D:\Xampp\htdocs\Laravel_tourismeDurable\resources\views/template/front_office.blade.php ENDPATH**/ ?>

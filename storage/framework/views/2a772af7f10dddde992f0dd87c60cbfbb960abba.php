@@ -1,7 +1,7 @@
-@extends('template.template-front')
 
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -10,30 +10,32 @@
             </div>
 
             <div class="row g-4 justify-content-center">
-                @foreach($trips as $trip)
+                <?php $__currentLoopData = $trips; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $trip): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="package-item border">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="{{ asset('images/img/package-1.jpg') }}" alt="{{ $trip->destination }}">
+                                <img class="img-fluid" src="<?php echo e(asset('images/img/package-1.jpg')); ?>" alt="<?php echo e($trip->destination); ?>">
                             </div>
                             <div class="d-flex border-bottom">
                                 <small class="flex-fill text-center border-end py-2">
-                                    <i class="fa fa-map-marker-alt text-primary me-2"></i>{{ $trip->destination }}
+                                    <i class="fa fa-map-marker-alt text-primary me-2"></i><?php echo e($trip->destination); ?>
+
                                 </small>
                                 <small class="flex-fill text-center border-end py-2">
                                     <i class="fa fa-calendar-alt text-primary me-2"></i>
-                                    {{ \Carbon\Carbon::parse($trip->start_date)->diffInDays($trip->end_date) }} days
+                                    <?php echo e(\Carbon\Carbon::parse($trip->start_date)->diffInDays($trip->end_date)); ?> days
                                 </small>
                                 <small class="flex-fill text-center py-2">
-                                    <i class="fa fa-user text-primary me-2"></i>{{ $trip->travelers_count }} Person{{ $trip->travelers_count > 1 ? 's' : '' }}
+                                    <i class="fa fa-user text-primary me-2"></i><?php echo e($trip->travelers_count); ?> Person<?php echo e($trip->travelers_count > 1 ? 's' : ''); ?>
+
                                 </small>
                             </div>
                             <div class="text-center p-4">
-                                <h3 class="mb-0">${{ number_format($trip->cost, 2) }}</h3>
+                                <h3 class="mb-0">$<?php echo e(number_format($trip->cost, 2)); ?></h3>
                                 <div class="mb-3">
-                                    @for ($i = 0; $i < 5; $i++)
+                                    <?php for($i = 0; $i < 5; $i++): ?>
                                         <small class="fa fa-star text-primary"></small>
-                                    @endfor
+                                    <?php endfor; ?>
                                 </div>
                                 <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam eos.</p>
                                 <div class="d-flex justify-content-center mb-2">
@@ -42,11 +44,13 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 
+
+<?php echo $__env->make('template.template-front', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Xampp\htdocs\Laravel_tourismeDurable\resources\views/template/trips_list.blade.php ENDPATH**/ ?>

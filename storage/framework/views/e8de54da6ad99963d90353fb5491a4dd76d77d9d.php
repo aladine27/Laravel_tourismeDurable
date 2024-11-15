@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="{{ asset('images/img/favicon.ico') }}" rel="icon">
+    <link href="<?php echo e(asset('images/img/favicon.ico')); ?>" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,15 +21,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="{{ asset('css/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/animate.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/owl.carousel.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/tempusdominus-bootstrap-4.min.css')); ?>" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/style.css')); ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -68,14 +68,14 @@
 
     <!-- Navbar & Hero Start -->
     <div class="container-fluid position-relative p-0">
-        @include('template.navbar')
+        <?php echo $__env->make('template.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
         <div class="container-fluid bg-primary py-5 mb-5 hero-header">
             <div class="container py-5">
                 <div class="row justify-content-center py-5">
                     <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
-                        <h1 class="display-3 text-white mb-3 animated slideInDown">Réservez une Table dans Nos Meilleurs Restaurants</h1>
-                        <p class="fs-4 text-white mb-4 animated slideInDown">Explorez et réservez des expériences culinaires uniques</p>
+                        <h1 class="display-3 text-white mb-3 animated slideInDown">Enjoy Your Vacation With Us</h1>
+                        <p class="fs-4 text-white mb-4 animated slideInDown">Tempor erat elitr rebum at clita diam amet diam et eos erat ipsum lorem sit</p>
                         <div class="position-relative w-75 mx-auto animated slideInDown">
                             <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Eg: Thailand">
                             <button type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
@@ -85,63 +85,31 @@
             </div>
         </div>
     </div>
-    <!-- Navbar & Hero End -->
 
 
 
-
-
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Réservation</h6>
-                <h1 class="mb-5">Faire une Réservation au Restaurant {{ $restaurant->name }}</h1>
-            </div>
-            <div class="reservation-content">
-                <form action="{{ route('restaurants.storeReservation', $restaurant->id) }}" method="POST" id="reservation-form">
-                    @csrf
-
-                    <div class="mb-3">
-                        <label for="reservation_date" class="form-label">Date de Réservation</label>
-                        <input type="date" name="reservation_date" id="reservation_date" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="reservation_time" class="form-label">Heure de Réservation</label>
-                        <input type="time" name="reservation_time" id="reservation_time" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="number_of_people" class="form-label">Nombre de Personnes</label>
-                        <input type="number" name="number_of_people" id="number_of_people" class="form-control" required min="1">
-                    </div>
-
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">Réserver</button>
-                        <a href="{{ route('restaurants.list') }}" class="btn btn-secondary">Annuler</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+        <?php echo $__env->yieldContent('content'); ?>
 
 
 
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/wow.min.js') }}"></script>
-    <script src="{{ asset('js/easing.min.js') }}"></script>
-    <script src="{{ asset('js/waypoints.min.js') }}"></script>
-    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('js/moment.min.js') }}"></script>
-    <script src="{{ asset('js/moment-timezone.min.js') }}"></script>
-    <script src="{{ asset('js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="<?php echo e(asset('js/wow.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/easing.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/waypoints.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/moment.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/moment-timezone.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/tempusdominus-bootstrap-4.min.js')); ?>"></script>
 
     <!-- Template Javascript -->
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="<?php echo e(asset('js/main.js')); ?>"></script>
 </body>
 
 </html>
+<?php /**PATH D:\Xampp\htdocs\Laravel_tourismeDurable\resources\views/template/template-front.blade.php ENDPATH**/ ?>

@@ -28,20 +28,27 @@ use App\Http\Controllers\AttractionController;
 require __DIR__ . '/auth.php';
 
 // Public Routes
-Route::get('/home', [HomePageController::class, 'home'])->name('home');
-// Route::get('/', [FrontPageController::class, 'showFrontOffice'])->name('front');
+//Route::get('/home', [HomePageController::class, 'home'])->name('home');
+
+Route::get('/', function () {
+    return redirect('front');
+})->name('front-page');
+
 Route::get('/front', [FrontPageController::class, 'showFrontOffice'])->name('front');
+Route::get('/front/accommodations', [AccommodationController::class, 'showList'])->name('accommodation.list-show');
 Route::get('/front/trips', [TripController::class, 'showTripsList'])->name('trips.list');
 Route::get('/front/events', [EventController::class, 'showEventList'])->name('events.list');
-Route::get('/front/front-guide', [FrontPageController::class, 'frontIndex'])->name('template.frontguide');
-
-Route::get('/front-guide', [FrontPageController::class, 'frontIndex'])->name('template.frontguide');
-Route::get('/guides/{guideId}/tours', [FrontPageController::class, 'showToursByGuide'])->name('guide_tours');
 Route::get('/front/destinations', [DestinationController::class, 'showDestinationList'])->name('destinations.list');
+Route::get('/front/guides', [FrontPageController::class, 'frontIndex'])->name('template.frontguide');
+Route::get('/guides/{guideId}/tours', [FrontPageController::class, 'showToursByGuide'])->name('guide_tours');
+// Restaurant routes
+Route::get('restaurants/list', [RestaurantController::class, 'getRestaurantList'])->name('restaurants.list');
+Route::get('/restaurants/{id}', [RestaurantController::class, 'restaurantDetails'])->name('restaurants.details');
+
 /////////////// Routes pour l'admin//////////////////////////////////////////////////////////
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+
 
     Route::get('/admin/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
 
@@ -96,7 +103,7 @@ Route::group(['middleware' => 'auth'], function () {
     //     $destinations = Destination::whereHas('attractions', function($query) use ($type) {
     //         $query->where('type', $type);
     //     })->get();
-    
+
     //     return view('search.results', compact('destinations'));
     // });
     Route::get('/search', [DestinationController::class, 'search'])->name('destination.search');
@@ -106,6 +113,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('guides', GuideController::class);
     Route::resource('tours', TourController::class);
     Route::resource('restaurants', RestaurantController::class);
+    Route::get('restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
+
     Route::resource('menus', MenuController::class);
     Route::get('tours/{tour}/assign-guides', [GuideTourController::class, 'create'])->name('guides.assign');
     Route::post('tours/{tour}/assign-guides', [GuideTourController::class, 'store'])->name('guides.assign.store');
@@ -114,10 +123,7 @@ Route::resource('guides', GuideController::class);
 Route::resource('tours', TourController::class);
 
 
-// Restaurant routes
-Route::get('restaurants/list', [RestaurantController::class, 'getRestaurantList'])->name('restaurants.list');
-Route::get('restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
-Route::get('/restaurants/{id}', [RestaurantController::class, 'restaurantDetails'])->name('restaurants.details');
+
 
 // Resource routes for restaurants and menus with specific methods only
 Route::resource('restaurants', RestaurantController::class)->except(['index']);
@@ -229,16 +235,3 @@ Route::get('terms-of-use', [HomeController::class, 'termsofuse'])->name('pages.t
 
 
 
-Route::get('/send-test-email', function () {
-    $details = [
-        'subject' => 'Test Email',
-        'message' => 'This is a test email from Laravel.'
-    ];
-
-    Mail::raw($details['message'], function ($message) use ($details) {
-        $message->to('zoghlamisirin@gmail.com')
-                ->subject($details['subject']);
-    });
-
-    return 'Test email sent!';
-});

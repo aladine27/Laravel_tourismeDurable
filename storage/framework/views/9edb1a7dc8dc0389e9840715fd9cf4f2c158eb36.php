@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="{{ asset('images/img/favicon.ico') }}" rel="icon">
+    <link href="<?php echo e(asset('images/img/favicon.ico')); ?>" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,15 +21,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="{{ asset('css/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/animate.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/owl.carousel.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/tempusdominus-bootstrap-4.min.css')); ?>" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/style.css')); ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -68,7 +68,7 @@
 
     <!-- Navbar & Hero Start -->
     <div class="container-fluid position-relative p-0">
-        @include('template.navbar')
+        <?php echo $__env->make('template.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
         <div class="container-fluid bg-primary py-5 mb-5 hero-header">
             <div class="container py-5">
@@ -95,11 +95,11 @@
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">Réservation</h6>
-                <h1 class="mb-5">Faire une Réservation au Restaurant {{ $restaurant->name }}</h1>
+                <h1 class="mb-5">Faire une Réservation au Restaurant <?php echo e($restaurant->name); ?></h1>
             </div>
             <div class="reservation-content">
-                <form action="{{ route('restaurants.storeReservation', $restaurant->id) }}" method="POST" id="reservation-form">
-                    @csrf
+                <form action="<?php echo e(route('restaurants.storeReservation', $restaurant->id)); ?>" method="POST" id="reservation-form">
+                    <?php echo csrf_field(); ?>
 
                     <div class="mb-3">
                         <label for="reservation_date" class="form-label">Date de Réservation</label>
@@ -118,7 +118,7 @@
 
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary">Réserver</button>
-                        <a href="{{ route('restaurants.list') }}" class="btn btn-secondary">Annuler</a>
+                        <a href="<?php echo e(route('restaurants.list')); ?>" class="btn btn-secondary">Annuler</a>
                     </div>
                 </form>
             </div>
@@ -132,16 +132,17 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/wow.min.js') }}"></script>
-    <script src="{{ asset('js/easing.min.js') }}"></script>
-    <script src="{{ asset('js/waypoints.min.js') }}"></script>
-    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('js/moment.min.js') }}"></script>
-    <script src="{{ asset('js/moment-timezone.min.js') }}"></script>
-    <script src="{{ asset('js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="<?php echo e(asset('js/wow.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/easing.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/waypoints.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/moment.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/moment-timezone.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/tempusdominus-bootstrap-4.min.js')); ?>"></script>
 
     <!-- Template Javascript -->
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="<?php echo e(asset('js/main.js')); ?>"></script>
 </body>
 
 </html>
+<?php /**PATH D:\Xampp\htdocs\Laravel_tourismeDurable\resources\views/template/restaurant_reservations/create.blade.php ENDPATH**/ ?>

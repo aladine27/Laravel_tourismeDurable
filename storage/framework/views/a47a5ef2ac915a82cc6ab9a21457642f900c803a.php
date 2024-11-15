@@ -1,9 +1,9 @@
 
 
-@extends('template.template-front')
 
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -11,46 +11,48 @@
                 <h1 class="mb-5">Explore Our Destinations</h1>
             </div>
             <div class="row g-4 justify-content-center">
-                @foreach($destinations as $destination)
+                <?php $__currentLoopData = $destinations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $destination): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="package-item">
                             <div class="overflow-hidden">
-                                @if($destination->image)
-                                    <img src="{{ asset('storage/' . $destination->image) }}" alt="{{ $destination->name }}" style="width: 400px; height: 400px;">
-                                @else
+                                <?php if($destination->image): ?>
+                                    <img src="<?php echo e(asset('storage/' . $destination->image)); ?>" alt="<?php echo e($destination->name); ?>" style="width: 400px; height: 400px;">
+                                <?php else: ?>
                                     No Image
-                                @endif
+                                <?php endif; ?>
                             </div>
                             <div class="d-flex border-bottom">
                                 <small class="flex-fill text-center border-end py-2">
-                                    <i class="fa fa-map-marker-alt text-primary me-2"></i>{{ $destination->getAddress() }}
+                                    <i class="fa fa-map-marker-alt text-primary me-2"></i><?php echo e($destination->getAddress()); ?>
+
                                 </small>
                                 <small class="flex-fill text-center border-end py-2">
-                                    <i class="fa fa-calendar-alt text-primary me-2"></i>{{ \Carbon\Carbon::parse($destination->date)->diffForHumans() }}
+                                    <i class="fa fa-calendar-alt text-primary me-2"></i><?php echo e(\Carbon\Carbon::parse($destination->date)->diffForHumans()); ?>
+
                                 </small>
                                 <small class="flex-fill text-center py-2">
-                                    <i class="fa fa-user text-primary me-2"></i>{{ $destination->attractions->count() }} Attractions
+                                    <i class="fa fa-user text-primary me-2"></i><?php echo e($destination->attractions->count()); ?> Attractions
                                 </small>
                             </div>
                             <div class="text-center p-4">
-                                @if($destination->attractions->isNotEmpty())
+                                <?php if($destination->attractions->isNotEmpty()): ?>
                                     <h3 class="text-danger">
-                                        🎉 Il y a {{ $destination->attractions->count() }} attraction(s) 🎉
+                                        🎉 Il y a <?php echo e($destination->attractions->count()); ?> attraction(s) 🎉
                                     </h3>
-                                    @foreach($destination->attractions as $attraction)
-                                        <h3 class="mb-0"> {{ $attraction->name }} de type : {{ $attraction->type }}</h3>
-                                    @endforeach
-                                @else
+                                    <?php $__currentLoopData = $destination->attractions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attraction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <h3 class="mb-0"> <?php echo e($attraction->name); ?> de type : <?php echo e($attraction->type); ?></h3>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
                                     <h3 class="text-danger">Malheureusement, pas d'attraction</h3>
-                                @endif
+                                <?php endif; ?>
 
                                 <div class="mb-3">
-                                    @for ($i = 0; $i < 5; $i++)
+                                    <?php for($i = 0; $i < 5; $i++): ?>
                                         <small class="fa fa-star text-primary"></small>
-                                    @endfor
+                                    <?php endfor; ?>
                                 </div>
 
-                                <p>{{ $destination->description }}</p>
+                                <p><?php echo e($destination->description); ?></p>
 
                                 <div class="d-flex justify-content-center mb-2">
                                     <a href="#" class="btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
@@ -59,7 +61,7 @@
 
                         </div>
                     </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </div>
@@ -154,7 +156,9 @@
             });
         });
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 
+
+<?php echo $__env->make('template.template-front', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Xampp\htdocs\Laravel_tourismeDurable\resources\views/template/destinations_list.blade.php ENDPATH**/ ?>
