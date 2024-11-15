@@ -30,9 +30,7 @@ require __DIR__ . '/auth.php';
 // Public Routes
 //Route::get('/home', [HomePageController::class, 'home'])->name('home');
 
-Route::get('/', function () {
-    return redirect('front');
-})->name('front-page');
+
 
 Route::get('/front', [FrontPageController::class, 'showFrontOffice'])->name('front');
 Route::get('/front/accommodations', [AccommodationController::class, 'showList'])->name('accommodation.list-show');
@@ -47,7 +45,9 @@ Route::get('/restaurants/{id}', [RestaurantController::class, 'restaurantDetails
 
 /////////////// Routes pour l'admin//////////////////////////////////////////////////////////
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
 
 
     Route::get('/admin/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
