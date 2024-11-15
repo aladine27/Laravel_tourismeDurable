@@ -74,7 +74,7 @@ public function getFormattedAddress()
     $words = explode(' ', $address);
     $formattedAddress = '';
 
-    foreach (array_chunk($words, 5) as $chunk) {
+    foreach (array_chunk($words, 3) as $chunk) {
         $formattedAddress .= implode(' ', $chunk) . '<br>';
     }
 
