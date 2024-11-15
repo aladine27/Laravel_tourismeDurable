@@ -52,7 +52,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
+    //Route::get('/dashboard', [TripController::class, 'index'])->name('admin.dashboard');
     // autres routes réservées aux administrateurs
     // Resource Routes
 
@@ -63,6 +63,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Route::resource('gestionVoyageur', TravelerController::class);
     Route::resource('gestionVoyage', TripController::class);
     Route::resource('gestionVoyageur', TravelerController::class);
+    Route::get('/trips/print', [TripController::class, 'print'])->name('trips.print');
 
     // Route::get('/gestionVoyageur/{id}/edit', [TravelerController::class, 'edit'])->name('gestionVoyageur.edit');
     // Route::put('/gestionVoyageur/{id}', [TravelerController::class, 'update'])->name('gestionVoyageur.update');
