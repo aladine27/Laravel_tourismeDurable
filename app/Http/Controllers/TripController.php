@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Trip;
 use App\Models\Traveler;
 use Illuminate\Http\Request;
+use PDF; // Make sure to import the PDF facade
+
 
 class TripController extends Controller
 {
@@ -113,4 +115,17 @@ class TripController extends Controller
         // Pass the trips data to the trips list view
         return view('template.trips_list', compact('trips'));
     }
+
+// TripController.php
+public function print()
+{
+    // Logic to generate and download the PDF
+    // Example using a package like DomPDF
+    $trips = Trip::all(); // Or fetch the data you need for the PDF
+    
+    $pdf = \PDF::loadView('trips.pdf', compact('trips')); // Ensure 'trips.pdf' view is created
+    return $pdf->download('trips-list.pdf');
+}
+
+
 }

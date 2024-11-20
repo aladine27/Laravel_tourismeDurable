@@ -13,6 +13,7 @@
                     <th>Image</th>
                     <th>Location</th>
                     <th>Actions</th>
+                    <th>Attractions</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,8 +32,10 @@
                         @endif
                     </td>
 
-                    <td>{{ $dest->getAddress() }}</td> <!-- Use the getAddress method -->
+                    <td>{!! $dest->getFormattedAddress() !!}</td>
+                    <!-- Use the getAddress method -->
                     <td>
+                    <div class="d-flex align-items-center">
                         <!-- Button to edit the event -->
                         <a href="{{ route('destinations.edit', $dest) }}" class="editBtn"> <svg height="1em" viewBox="0 0 512 512">
                                 <path
@@ -88,12 +91,61 @@
                             </button>
 
                         </form>
+                        </div>
+                    </td>
+                    <td><button class="btn btn-primary showAttractionsBtn" data-destination-id="{{ $dest->id }}" data-bs-toggle="modal" data-bs-target="#attractionsModal">Show </button>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+    <!-- Modal for showing attractions -->
+    <div class="modal fade" id="attractionsModal" tabindex="-1" aria-labelledby="attractionsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="attractionsModalLabel">Attractions for Destination</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul id="attractionsList" class="list-group">
+                        <!-- The list of attractions will be inserted here dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Inclusion de jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  
+    <!-- Ton script avec jQuery -->
+    <script>
+        $(document).ready(function() {
+            $('.showAttractionsBtn').on('click', function() {
+                var destinationId = $(this).data('destination-id');
+                $.ajax({
+                    url: '/destinations/' + destinationId + '/attractions',
+                    method: 'GET',
+                    success: function(response) {
+                        $('#attractionsList').empty();
+                        response.attractions.forEach(function(attraction) {
+                            $('#attractionsList').append('<li class="list-group-item">' +
+                                'Name: ' + attraction.name + '<br>' + // Ajouter un retour à la ligne après le nom
+                                'Type: ' + attraction.type + // Afficher le type
+                                '</li>');
+
+                        });
+                    },
+                    error: function() {
+                        alert('Could not load attractions.');
+                    }
+                });
+            });
+        });
+    </script>
+
 
     <style>
         .destinations-content {
@@ -175,7 +227,7 @@
             height: 55px;
             border-radius: 20px;
             border: none;
-            background-color: rgb(93, 93, 116);
+            background-color:rgb(29, 78, 216); 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -190,7 +242,7 @@
             content: "";
             width: 200%;
             height: 200%;
-           background-color: #f16a1b;
+            background-color: #007bff;
             position: absolute;
             z-index: 1;
             transform: scale(0);
@@ -204,7 +256,8 @@
         }
 
         .editBtn:hover {
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.336);
+            box-shadow: 0px 5px 10px rgba(0, 0, 255, 0.336);
+
         }
 
         .editBtn svg {

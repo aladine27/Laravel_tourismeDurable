@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accommodation;
+use App\Models\Trip;
 use Illuminate\Http\Request;
 
 class AccommodationController extends Controller
@@ -26,9 +27,10 @@ class AccommodationController extends Controller
             'price_per_night' => 'required|integer',
         ]);
 
+        $address = json_decode($request->address, true);
         Accommodation::create([
             'name' => $request->name,
-            'address' => $request->address,
+            'address' => $address,
             'price_per_night' => $request->price_per_night,
         ]);
 
@@ -48,10 +50,10 @@ class AccommodationController extends Controller
             'price_per_night' => 'required|integer',
         ]);
 
-        $location = json_decode($request->address, true);
+        $address = json_decode($request->address, true);
         $accommodation->update([
             'name' => $request->name,
-            'address' => $location,
+            'address' => $address,
             'price_per_night' => $request->price_per_night,
         ]);
 
@@ -68,5 +70,14 @@ class AccommodationController extends Controller
     {
         $accommodation = Accommodation::findOrFail($id);
         return view('accommodations.show', compact('accommodation'));
+    }
+
+    public function showList()
+    {
+        // Fetch all trips with their associated traveler count
+        $accomodations = Accommodation::all();
+
+        // Pass the trips data to the trips list view
+        return view('template.hebergements.list', compact('accomodations'));
     }
 }

@@ -16,7 +16,14 @@ class Destination extends Model
         'location' => 'array', // This will ensure it's stored as JSON in the database
     ];
     
-
+  /**
+     * Relation One-to-Many avec Attraction.
+     * Une destination peut avoir plusieurs attractions.
+     */
+    public function attractions()
+    {
+        return $this->hasMany(Attraction::class);
+    }
   
 
     // Accessor for latitude
@@ -59,4 +66,20 @@ class Destination extends Model
     }
 
     return 'Location not found'; // Fallback if lat/lng are missing
-}}
+}
+
+public function getFormattedAddress()
+{
+    $address = $this->getAddress();
+    $words = explode(' ', $address);
+    $formattedAddress = '';
+
+    foreach (array_chunk($words, 3) as $chunk) {
+        $formattedAddress .= implode(' ', $chunk) . '<br>';
+    }
+
+    return $formattedAddress;
+}
+
+
+}

@@ -12,6 +12,7 @@
     @endif
 
     <a href="{{ route('gestionVoyage.create') }}" class="btn btn-primary">Ajouter un voyage</a>
+    <a href="{{ route('trips.print') }}" class="btn btn-primary">Print PDF</a>
 
     <table class="table mt-3">
         <thead>
@@ -52,6 +53,7 @@
             @endforeach
         </tbody>
     </table>
+
 </div>
 
 <style>
